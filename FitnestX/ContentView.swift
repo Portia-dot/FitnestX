@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("isFirstTime") private var isFirstTime: Bool = true
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            if isFirstTime {
+                IntroScreen()
+            }else{
+                EmptyView()
+            }
         }
-        .padding()
     }
 }
 
