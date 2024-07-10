@@ -13,6 +13,7 @@ struct IntroScreen: View {
     @State private var buttonTextColor: Color = .customBlue
     @AppStorage("isFirstTime") private var isFirstTime: Bool = true
     @State private var showOnboarding = false
+    @State private var showMainView = false
     
     var body: some View {
         VStack(spacing: 10, content: {
@@ -36,7 +37,12 @@ struct IntroScreen: View {
                     withAnimation(.easeInOut(duration: 0.2)){
                         isTapped = false
                     }
-                    showOnboarding = true
+                    if isFirstTime {
+                        showOnboarding = true
+                    }else{
+                        showMainView = true
+                    }
+                    isFirstTime = false
                 }
             }label: {
                 Text("Get Started")
@@ -48,16 +54,11 @@ struct IntroScreen: View {
                     .clipShape(RoundedRectangle(cornerRadius: 25.0))
                     .scaleEffect(isTapped ? 0.95 : 1.0)
                     .opacity(isTapped ? 0.8 : 1.0)
-                    
+                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 40)
-            .background(
-                NavigationLink(destination: OnboardingPage(), isActive: $showOnboarding ){
-                    EmptyView()
-                }
-                )
-
+            
         })
         .background(buttonBackgroundColor == .customBlue ? Color.white : Color.customBlue)
         .ignoresSafeArea(.all)
@@ -69,6 +70,12 @@ struct IntroScreen: View {
                 buttonBackgroundColor = .white
                 buttonTextColor = .customBlue
             }
+        }
+        .navigationDestination(isPresented: $showOnboarding) {
+            OnboardingPage()
+        }
+        .navigationDestination(isPresented: $showMainView) {
+            MainView()
         }
     }
 }
