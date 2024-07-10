@@ -10,7 +10,7 @@ import SwiftUI
 struct OnboardingPage: View {
     @State private var currentStep = 0
     @State private var progress: Double = 0.0
-    
+    @State private var showMainView = false
     
     let onboardingSteps = [
            OnboardingStep(imageName: "OnboardingImage1", title: "Track Your Goal", description: "Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals"),
@@ -27,44 +27,48 @@ struct OnboardingPage: View {
 
     
     var body: some View {
-        VStack{
-            currentPageView
-            
-            HStack{
-                Spacer()
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)){
-                       //Progress Circle Logic
-                        
-                        if currentStep < onboardingSteps.count - 1 {
-                            currentStep += 1
-                            progress = Double(currentStep + 1) / Double(onboardingSteps.count)
-                        }else {
-                            currentStep = 0
-                            progress = 0.0
+        NavigationStack{
+            VStack{
+                currentPageView
+                
+                HStack{
+                    Spacer()
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)){
+                            //Progress Circle Logic
+                            
+                            if currentStep < onboardingSteps.count - 1 {
+                                currentStep += 1
+                                progress = Double(currentStep + 1) / Double(onboardingSteps.count)
+                            }else {
+                               showMainView = true
+                            }
+                        }
+                    } label: {
+                        ZStack{
+                            Circle()
+                                .stroke(Color.customBlue.opacity(0.3), lineWidth: 4)
+                                .frame(width: 60, height: 60)
+                            
+                            Circle()
+                                .trim(from: 0.0, to: progress)
+                                .stroke(Color.customBlue, lineWidth: 4)
+                                .frame(width: 60, height: 60)
+                                .rotationEffect(.degrees(-90))
+                            
+                            Image(systemName: "arrow.right")
+                                .foregroundStyle(Color.customBlue)
                         }
                     }
-                } label: {
-                    ZStack{
-                        Circle()
-                            .stroke(Color.customBlue.opacity(0.3), lineWidth: 4)
-                            .frame(width: 60, height: 60)
-                        
-                        Circle()
-                            .trim(from: 0.0, to: progress)
-                            .stroke(Color.customBlue, lineWidth: 4)
-                            .frame(width: 60, height: 60)
-                            .rotationEffect(.degrees(-90))
-                        
-                        Image(systemName: "arrow.right")
-                            .foregroundStyle(Color.customBlue)
-                    }
+                    .padding(.bottom, 40)
+                    .padding(.trailing, 20)
                 }
-                .padding(.bottom, 40)
-                .padding(.trailing, 20)
+            }
+            .ignoresSafeArea(.all)
+            .navigationDestination(isPresented: $showMainView) {
+                MainView()
             }
         }
-        .ignoresSafeArea(.all)
     }
     // View Logic
 
