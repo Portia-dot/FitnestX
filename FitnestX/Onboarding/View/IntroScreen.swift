@@ -29,36 +29,14 @@ struct IntroScreen: View {
                 .bold()
                 .padding()
             Spacer()
-            Button{
-                withAnimation(.easeInOut(duration: 0.2)){
-                    isTapped = true
+            CustomButtonView(isTapped: $isTapped, buttonBackgroundColor: buttonBackgroundColor, buttonTextColor: buttonTextColor, label: "Get Started") {
+                if isFirstTime {
+                    showOnboarding = true
+                }else{
+                    showMainView = true
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
-                    withAnimation(.easeInOut(duration: 0.2)){
-                        isTapped = false
-                    }
-                    if isFirstTime {
-                        showOnboarding = true
-                    }else{
-                        showMainView = true
-                    }
-                    isFirstTime = false
-                }
-            }label: {
-                Text("Get Started")
-                    .fontWeight(.bold)
-                    .foregroundStyle(buttonTextColor)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(buttonBackgroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                    .scaleEffect(isTapped ? 0.95 : 1.0)
-                    .opacity(isTapped ? 0.8 : 1.0)
-                
+                isFirstTime = false
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 40)
-            
         })
         .background(buttonBackgroundColor == .customBlue ? Color.white : Color.customBlue)
         .ignoresSafeArea(.all)
@@ -75,7 +53,7 @@ struct IntroScreen: View {
             OnboardingPage()
         }
         .navigationDestination(isPresented: $showMainView) {
-            MainView()
+            MainViewAuth()
         }
     }
 }

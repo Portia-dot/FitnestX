@@ -66,7 +66,7 @@ struct OnboardingPage: View {
             }
             .ignoresSafeArea(.all)
             .navigationDestination(isPresented: $showMainView) {
-                MainView()
+                MainViewAuth()
             }
         }
     }
