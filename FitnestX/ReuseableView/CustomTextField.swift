@@ -35,11 +35,56 @@ struct CustomTextField: View {
     }
 }
 
-struct CustomTextField_Previews: PreviewProvider {
-    @State static var firstName: String = ""
+
+
+
+
+
+struct CustomTextFieldView: View {
+    
+    var imageName: String
+    @Binding var value: String
+    var dropDownItem: [String]  = ["item 1", "item 2", "item 3"]
+    var placeholder: String
+    var body: some View {
+        HStack{
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+                .padding(.trailing)
+                .foregroundStyle(.gray)
+            Menu {
+                ForEach(dropDownItem, id: \.self) { item in
+                    Button(action: {
+                        self.value = item
+                    }) {
+                        Text(item)
+                    }
+                }
+            } label: {
+                HStack {
+                    Text(value.isEmpty ? placeholder : value)
+                        .foregroundColor(value.isEmpty ? .gray : .black)
+                        .padding(.vertical)
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+        .padding(.horizontal)
+        .background(Color.customGrey.opacity(0.2))
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+    }
+}
+
+
+struct CustomTextFieldView_Previews: PreviewProvider {
+    @State static var value: String = ""
 
     static var previews: some View {
-        CustomTextField(text: $firstName, placeholder: "First Name", imageName: "Profile")
+        CustomTextFieldView(imageName: "Profile", value: $value, placeholder: "Select an Item")
             .previewLayout(.sizeThatFits)
             .padding()
     }

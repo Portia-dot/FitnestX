@@ -20,6 +20,7 @@ struct MainViewAuth: View {
                     }
                 }
         .animation(.easeInOut(duration: 0.5), value: authMode)
+        .navigationBarBackButtonHidden()
             }
     }
 
