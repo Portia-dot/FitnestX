@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var auth :RegistrationAuth 
     var body: some View {
         NavigationStack{
-            
+            if auth.userSession == nil{
                 IntroScreen()
+                    .environmentObject(auth)
+            }else{
+                MainTabView()
+                    .environmentObject(auth)
+            }
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(RegistrationAuth())
 }
 
 

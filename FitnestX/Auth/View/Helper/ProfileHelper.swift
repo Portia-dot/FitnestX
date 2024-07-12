@@ -11,7 +11,7 @@ import FirebaseFirestore
 class ProfileDetailsHelper: ObservableObject {
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
-
+    
     func validateFields(selectedGender: String, weight: String, height: String) -> Bool {
         if selectedGender.isEmpty || selectedGender == "Choose Gender" {
             alertMessage = "Please select a gender"
@@ -27,7 +27,7 @@ class ProfileDetailsHelper: ObservableObject {
         }
         return true
     }
-
+    
     func toggleWeightUnit(weight: inout String, weightUnit: inout String) {
         guard let currentWeight = Double(weight) else { return }
         
@@ -39,7 +39,7 @@ class ProfileDetailsHelper: ObservableObject {
             weight = String(format: "%.2f", currentWeight / 2.20462)
         }
     }
-
+    
     func toggleHeightUnit(height: inout String, heightUnit: inout String) {
         guard let currentHeight = Double(height) else { return }
         
@@ -51,14 +51,15 @@ class ProfileDetailsHelper: ObservableObject {
             height = String(format: "%.2f", currentHeight * 30.48)
         }
     }
-
-    func loadRegistrationDetails(firstName: inout String, lastName: inout String, email: inout String, isChecked: inout Bool) {
+    
+    func loadRegistrationDetails(firstName: inout String, lastName: inout String, email: inout String, password: inout String, isChecked: inout Bool) {
         firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
         email = UserDefaults.standard.string(forKey: "email") ?? ""
+        password = UserDefaults.standard.string(forKey: "password") ?? ""
         isChecked = UserDefaults.standard.bool(forKey: "isChecked")
     }
-
+    
     func registerUser(email: String, password: String, firstName: String, lastName: String, gender: String, dateOfBirth: Date, weight: String, height: String, weightUnit: String, heightUnit: String, completion: @escaping (Result<Void, Error>) -> Void) {
         RegistrationAuth.shared.registerUser(email: email, password: password, firstName: firstName, lastName: lastName, gender: gender, dateOfBirth: dateOfBirth, weight: weight, height: height, weightUnit: weightUnit, heightUnit: heightUnit) { result in
             DispatchQueue.main.async {
@@ -74,5 +75,15 @@ class ProfileDetailsHelper: ObservableObject {
                 }
             }
         }
+    }
+    
+    func clearUserDefaults() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "firstName")
+        defaults.removeObject(forKey: "lastName")
+        defaults.removeObject(forKey: "email")
+        defaults.removeObject(forKey: "isChecked")
+        defaults.removeObject(forKey: "password")
+        defaults.removeObject(forKey: "showProfileDetails")
     }
 }

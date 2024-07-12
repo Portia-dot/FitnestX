@@ -33,6 +33,7 @@ struct FitnestXApp: App {
         WindowGroup {
             NavigationStack{
                 ContentView()
+                    .environmentObject(RegistrationAuth())
             }
         }
     }

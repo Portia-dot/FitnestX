@@ -7,13 +7,15 @@
 
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
-class RegistrationAuth {
+class RegistrationAuth : ObservableObject {
     static let shared = RegistrationAuth()
     @Published var userSession: FirebaseAuth.User?
     
      init(){
          self.userSession = Auth.auth().currentUser
+         self.verifyUserSession()
      }
     
     func registerUser(email: String, password: String, firstName: String, lastName: String, gender: String, dateOfBirth: Date,
@@ -65,10 +67,41 @@ class RegistrationAuth {
                 if let document = document, document.exists{
                     self.userSession = currentUser
                 }else{
-                    //Logout
+                    self.logout()
                     //Show Alert
                 }
             }
         }
     }
+    
+    //Login
+    
+    func login(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+            Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let user = result?.user else {
+                    completion(.failure(NSError(domain: "LoginError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred."])))
+                    return
+                }
+                
+                self.userSession = user
+                completion(.success(()))
+            }
+        }
+    
+    
+    //Logout
+     func logout() {
+         do{
+             try Auth.auth().signOut()
+             self.userSession = nil
+             print("Debug: Successfully logged out.")
+         } catch let signOutError as NSError{
+             print("Debug: Error signing out:", signOutError)
+         }
+     }
 }

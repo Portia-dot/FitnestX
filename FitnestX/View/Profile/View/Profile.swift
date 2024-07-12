@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct Profile: View {
+    @State private var isTapped = false
+    @EnvironmentObject var auth : RegistrationAuth
     var body: some View {
-        Text("Profile")
+        VStack{
+            CustomButtonView(isTapped: $isTapped, buttonBackgroundColor: Color.customPurple, buttonTextColor: Color.customGrey, label: "Log Out") {
+                auth.logout()
+            }
+        }
     }
 }
 
 #Preview {
     Profile()
+        .environmentObject(RegistrationAuth())
 }

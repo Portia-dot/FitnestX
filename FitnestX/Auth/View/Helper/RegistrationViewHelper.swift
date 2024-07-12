@@ -47,17 +47,19 @@ class RegistrationHelper: ObservableObject {
         return true
     }
 
-    func loadRegistrationDetails(firstName: inout String, lastName: inout String, email: inout String, isChecked: inout Bool) {
+    func loadRegistrationDetails(firstName: inout String, lastName: inout String, email: inout String, password: inout String, isChecked: inout Bool) {
         firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
         email = UserDefaults.standard.string(forKey: "email") ?? ""
+        password = UserDefaults.standard.string(forKey: "password") ?? ""
         isChecked = UserDefaults.standard.bool(forKey: "isChecked")
     }
 
-    func saveRegistrationDetails(firstName: String, lastName: String, email: String, isChecked: Bool) {
+    func saveRegistrationDetails(firstName: String, lastName: String, email: String, password: String, isChecked: Bool) {
         UserDefaults.standard.set(firstName, forKey: "firstName")
         UserDefaults.standard.set(lastName, forKey: "lastName")
         UserDefaults.standard.set(email, forKey: "email")
+        UserDefaults.standard.set(password, forKey: "password")
         UserDefaults.standard.set(isChecked, forKey: "isChecked")
     }
 }

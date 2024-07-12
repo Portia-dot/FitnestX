@@ -24,7 +24,6 @@ struct MainTabView: View {
             Profile()
                 .tag(3)
         }
-        .preferredColorScheme(.dark)
         .ignoresSafeArea()
         CustomTabBar(selectedIndex: $selectedIndex)
     }
@@ -32,4 +31,5 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView()
+        .environmentObject(RegistrationAuth())
 }

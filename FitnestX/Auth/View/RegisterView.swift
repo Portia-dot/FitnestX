@@ -26,19 +26,19 @@ struct RegisterView: View {
     var body: some View {
         AuthFormView(mode: .register,
                      fields: [
-                        
-                        AuthField(text: $email, placeholder: "Email", imageName: "Message"),
-                        AuthField(text: $password, placeholder: "Password", imageName: "Lock", isSecure: true),
                         AuthField(text: $firstName, placeholder: "First Name", imageName: "Profile"),
-                        AuthField(text: $lastName, placeholder: "Last Name", imageName: "Profile")
+                        AuthField(text: $lastName, placeholder: "Last Name", imageName: "Profile"),
+                        AuthField(text: $email, placeholder: "Email", imageName: "Message"),
+                        AuthField(text: $password, placeholder: "Password", imageName: "Lock", isSecure: true)
                      ],
                      isChecked: $isChecked) {
             //Ischecked Logic
             if helper.validateFields(firstName: firstName, lastName: lastName, email: email, password: password, isChecked: isChecked) {
-                helper.saveRegistrationDetails(firstName: firstName, lastName: lastName, email: email, isChecked: isChecked)
+                helper.saveRegistrationDetails(firstName: firstName, lastName: lastName, email: email, password: password, isChecked: isChecked)
                 showProfileDetails = true
             }else{
-                helper.showAlert = true
+                showAlert = true
+                alertMessage = helper.alertMessage
             }
             
         } secondaryAction: {
@@ -47,13 +47,14 @@ struct RegisterView: View {
         .navigationDestination(isPresented: $showProfileDetails){
             ProfileDetails()
         }
-        .alert("Invalid Input", isPresented: $showAlert){
+        .navigationBarBackButtonHidden()
+        .alert("Error", isPresented: $showAlert){
             Button("Ok", role: .cancel){}
         }message: {
             Text(alertMessage)
         }
         .onAppear{
-            helper.loadRegistrationDetails(firstName: &firstName, lastName: &lastName, email: &email, isChecked: &isChecked)
+            helper.loadRegistrationDetails(firstName: &firstName, lastName: &lastName, email: &email, password: &password, isChecked: &isChecked)
         }
     }
     
