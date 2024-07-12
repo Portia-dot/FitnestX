@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ProfileDetails: View {
+    //Helper
+    @StateObject private var helper = ProfileDetailsHelper()
+    
     //Registration
     @State private var firstName: String = ""
-    @State private var lastName: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var lastName: String = ""
     @State private var isChecked = false
     
     @State private var selectedGender: String = ""
@@ -75,10 +78,10 @@ struct ProfileDetails: View {
                         .background(Color.customPurple.opacity(0.7))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .onTapGesture {
-                            toggleWeightUnit()
+                            helper.toggleWeightUnit(weight: &weight, weightUnit: &weightUnit)
                         }
                     
-                        
+                    
                 }
                 HStack{
                     CustomTextField(text: $height, placeholder: "Your Height", imageName: "Swap")
@@ -90,23 +93,31 @@ struct ProfileDetails: View {
                         .background(Color.customPurple.opacity(0.7))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .onTapGesture {
-                            toggleHeightUnit()
+                            helper.toggleHeightUnit(height: &height, heightUnit: &heightUnit)
                         }
                     
-                        
+                    
                 }
                 Spacer()
                 CustomButtonView(isTapped: .constant(false), buttonBackgroundColor: Color.customPurple, buttonTextColor: Color.white, label: "Next") {
-                    if validateFields() {
-                        
+                    if helper.validateFields(selectedGender: selectedGender, weight: weight, height: height) {
+                        helper.registerUser(email: email, password: password, firstName: firstName, lastName: lastName, gender: selectedGender, dateOfBirth: dateOfBirth, weight: weight, height: height, weightUnit: weightUnit, heightUnit: heightUnit) {result in
+                            switch result {
+                            case .success:
+                                break
+                            case .failure(let error):
+                                helper.alertMessage = error.localizedDescription
+                                helper.showAlert = true
+                            }
+                        }
                     }else{
-                        showAlert = true
+                        helper.showAlert = true
                     }
                 }
             }
             .padding(.horizontal)
             .onAppear{
-                loadRegistrationDetails()
+                helper.loadRegistrationDetails(firstName: &firstName, lastName: &lastName, email: &email, isChecked: &isChecked)
             }
             .alert("Invalid Input", isPresented: $showAlert){
                 Button("OK", role: .cancel){}
@@ -115,63 +126,10 @@ struct ProfileDetails: View {
             }
         }
         
-                
-
-    }
-    
-    private func validateFields() -> Bool {
-        if selectedGender.isEmpty || selectedGender ==  "Choose Gender"{
-            alertMessage =  "Please select a gender"
-            return false
-        }
-        if weight.isEmpty {
-            alertMessage = "Please enter yoye weight"
-            return false
-        }
-        if height.isEmpty {
-            alertMessage = "Please enter your height"
-            return false
-        }
-        return true
-    }
-    private func toggleWeightUnit(){
-        guard let currentWeight = Double(weight) else {return}
         
-        if weightUnit == "KG"{
-            weightUnit = "LB"
-            weight = String(format: "%.2f", currentWeight * 2.20462)
-        }else {
-            weightUnit = "KG"
-            weight = String(format: "%.2f", currentWeight / 2.20462)
-        }
-    }
-    
-    private func toggleHeightUnit() {
-        guard let currentHeight = Double(height) else {return}
-        if heightUnit == "CM" {
-               heightUnit = "FT"
-               height = String(format: "%.2f", currentHeight / 30.48)
-           } else {
-               heightUnit = "CM"
-               height = String(format: "%.2f", currentHeight * 30.48)
-           }
+        
     }
     
     
-    private func loadRegistrationDetails() {
-          firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
-          lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
-          email = UserDefaults.standard.string(forKey: "email") ?? ""
-        password =  UserDefaults.standard.string(forKey: "password") ?? ""
-        isChecked = UserDefaults.standard.bool(forKey: "isCheck")
-        print("Loaded Registration Details:")
-                print("First Name: \(firstName)")
-                print("Last Name: \(lastName)")
-                print("Email: \(email)")
-        print("password \(password)")
-      }
-}
-
-#Preview {
-    ProfileDetails()
+    
 }
