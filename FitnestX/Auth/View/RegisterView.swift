@@ -96,7 +96,6 @@ struct RegisterView: View {
           UserDefaults.standard.set(firstName, forKey: "firstName")
           UserDefaults.standard.set(lastName, forKey: "lastName")
           UserDefaults.standard.set(email, forKey: "email")
-          UserDefaults.standard.set(password, forKey: "password")
           UserDefaults.standard.set(isChecked, forKey: "isChecked")
           UserDefaults.standard.set(showProfileDetails, forKey: "showProfileDetails")
       }
