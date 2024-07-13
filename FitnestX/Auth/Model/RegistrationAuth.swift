@@ -20,6 +20,7 @@ class RegistrationAuth : ObservableObject {
      init(){
          self.userSession = Auth.auth().currentUser
          self.verifyUserSession()
+         self.fetchUser()
      }
     
     
@@ -73,7 +74,7 @@ class RegistrationAuth : ObservableObject {
             db.collection("users").document(currentUser.uid).getDocument { document, error in
                 if let document = document, document.exists{
                     self.userSession = currentUser
-                    self.fetchUser()
+                    
                 }else{
                     self.logout()
                     self.showLogOutAlert = true
@@ -134,24 +135,22 @@ class RegistrationAuth : ObservableObject {
     
     //Fetch User
     
-    func fetchUser(){
-        guard let uid = self.userSession?.uid else {
-            print("Debug Fetch User: User Session Is Empty")
-            return
-        }
-        service.fetchUser(uid: uid) { user, error in
-            if let error = error {
-                print("Debug: Error \(error.localizedDescription)")
+    func fetchUser() {
+            guard let uid = self.userSession?.uid else {
+                print("Debug Fetch User: User Session Is Empty")
                 return
             }
-            if let user = user {
-                DispatchQueue.main.async {
-                    self.currentUser = user
-                    print("Fetch user: \(user.firstName)")
+            service.fetchUser(uid: uid) { user, error in
+                if let error = error {
+                    print("Debug: Error \(error.localizedDescription)")
+                    return
                 }
-            }else{
-                print("User Not Found")
+                if let user = user {
+                    DispatchQueue.main.async {
+                        self.currentUser = user                    }
+                } else {
+                    print("Debug: User Not Found")
+                }
             }
         }
-    }
 }

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var auth: RegistrationAuth
+    @EnvironmentObject var auth: RegistrationAuth
+    let user: User
     //User
     var body: some View {
         HStack{
@@ -16,23 +17,16 @@ struct HomeView: View {
                 Text("Welcome Back")
                     .font(.callout)
                     .foregroundStyle(Color.customGrey)
-                if let user = auth.currentUser {
-                    Text("\(user.firstName) \(user.lastName)")
-                        .font(.title)
-                        .foregroundStyle(Color.customDark)
-                        .fontWeight(.bold)
-                }else{
-                    Text("Loading")
-                }
+                Text("\(user.firstName) \(user.lastName)")
+                    .font(.title)
+                    .foregroundStyle(Color.customDark)
+                    .fontWeight(.bold)
             }
             Spacer()
             
             Image("Notification")
                 .resizable()
                 .frame(width: 20, height: 20)
-        }
-        .onAppear{
-            auth.fetchUser()
         }
         .padding(18)
         Spacer()
