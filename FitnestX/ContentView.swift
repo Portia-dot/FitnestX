@@ -19,6 +19,9 @@ struct ContentView: View {
                     .environmentObject(auth)
             }
         }
+        .onAppear{
+            print("\(auth.userSession)")
+        }
     }
 }
 

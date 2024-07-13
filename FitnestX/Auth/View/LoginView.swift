@@ -41,12 +41,10 @@ struct LoginView: View {
         } message: {
             Text(alertMessage)
         }
-        .navigationDestination(isPresented: $navigateToMainTab) {
+        .fullScreenCover(isPresented: $navigateToMainTab) {
             MainTabView()
                 .environmentObject(auth)
-                .navigationBarBackButtonHidden()
         }
-
     }
 }
 

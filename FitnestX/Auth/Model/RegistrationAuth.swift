@@ -16,7 +16,11 @@ class RegistrationAuth : ObservableObject {
      init(){
          self.userSession = Auth.auth().currentUser
          self.verifyUserSession()
+         self.setupAuthListener()
      }
+    
+    
+    
     
     func registerUser(email: String, password: String, firstName: String, lastName: String, gender: String, dateOfBirth: Date,
                       weight: String, height: String, weightUnit: String, heightUnit: String, completion:
@@ -77,22 +81,25 @@ class RegistrationAuth : ObservableObject {
     //Login
     
     func login(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
-            Auth.auth().signIn(withEmail: email, password: password) { result, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let user = result?.user else {
-                    completion(.failure(NSError(domain: "LoginError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred."])))
-                    return
-                }
-                
-                self.userSession = user
-                completion(.success(()))
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Login failed with error: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
             }
+            
+            guard let user = result?.user else {
+                print("Login failed: Unknown error occurred.")
+                completion(.failure(NSError(domain: "LoginError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred."])))
+                return
+            }
+            
+            self.userSession = user
+            print("Login successful, user session is set.")
+            completion(.success(()))
         }
-    
+    }
+
     
     //Logout
      func logout() {
@@ -104,4 +111,17 @@ class RegistrationAuth : ObservableObject {
              print("Debug: Error signing out:", signOutError)
          }
      }
+    
+    
+    func setupAuthListener() {
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user {
+                print("User is logged in with uid: \(user.uid)")
+                self.userSession = user
+            } else {
+                print("User is logged out.")
+                self.userSession = nil
+            }
+        }
+    }
 }
