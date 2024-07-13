@@ -15,6 +15,8 @@ struct IntroScreen: View {
     @State private var showOnboarding = false
     @State private var showMainView = false
     
+    @EnvironmentObject var auth: RegistrationAuth
+    
     var body: some View {
         VStack(spacing: 10, content: {
             Spacer()
@@ -51,9 +53,11 @@ struct IntroScreen: View {
         }
         .navigationDestination(isPresented: $showOnboarding) {
             OnboardingPage()
+                .environmentObject(auth)
         }
         .navigationDestination(isPresented: $showMainView) {
             MainViewAuth()
+                .environmentObject(auth)
         }
     }
 }

@@ -26,6 +26,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct FitnestXApp: App {
+    @StateObject private var auth = RegistrationAuth()
     //Register app delegate
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
@@ -33,7 +34,7 @@ struct FitnestXApp: App {
         WindowGroup {
             NavigationStack{
                 ContentView()
-                    .environmentObject(RegistrationAuth())
+                    .environmentObject(auth)
             }
         }
     }

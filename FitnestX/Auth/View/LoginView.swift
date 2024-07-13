@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    
     @EnvironmentObject var auth : RegistrationAuth
     
     @Binding  var authMode: AuthFormView.AuthMode
@@ -42,7 +43,7 @@ struct LoginView: View {
         }
         .navigationDestination(isPresented: $navigateToMainTab) {
             MainTabView()
-                .environmentObject(auth)  
+                .environmentObject(auth)
                 .navigationBarBackButtonHidden()
         }
 

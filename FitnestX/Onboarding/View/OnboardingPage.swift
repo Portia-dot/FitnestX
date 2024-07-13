@@ -11,6 +11,7 @@ struct OnboardingPage: View {
     @State private var currentStep = 0
     @State private var progress: Double = 0.0
     @State private var showMainView = false
+    @EnvironmentObject var auth: RegistrationAuth
     
     let onboardingSteps = [
            OnboardingStep(imageName: "OnboardingImage1", title: "Track Your Goal", description: "Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals"),
@@ -67,6 +68,7 @@ struct OnboardingPage: View {
             .ignoresSafeArea(.all)
             .navigationDestination(isPresented: $showMainView) {
                 MainViewAuth()
+                    .environmentObject(auth)
             }
         }
     }
