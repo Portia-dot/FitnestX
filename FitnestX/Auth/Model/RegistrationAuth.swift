@@ -12,11 +12,14 @@ import FirebaseAuth
 class RegistrationAuth : ObservableObject {
     static let shared = RegistrationAuth()
     @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: User?
+    var service = UserService()
+    
+    @Published var showLogOutAlert = false
     
      init(){
          self.userSession = Auth.auth().currentUser
          self.verifyUserSession()
-         self.setupAuthListener()
      }
     
     
@@ -70,8 +73,10 @@ class RegistrationAuth : ObservableObject {
             db.collection("users").document(currentUser.uid).getDocument { document, error in
                 if let document = document, document.exists{
                     self.userSession = currentUser
+                    self.fetchUser()
                 }else{
                     self.logout()
+                    self.showLogOutAlert = true
                     //Show Alert
                 }
             }
@@ -103,24 +108,49 @@ class RegistrationAuth : ObservableObject {
     
     //Logout
      func logout() {
+         print("Debug: Logging Out \(String(describing: self.userSession))")
          do{
              try Auth.auth().signOut()
              self.userSession = nil
-             print("Debug: Successfully logged out.")
+             
+             print("Debug 2: Successfully logged out. \(String(describing: self.userSession))")
          } catch let signOutError as NSError{
              print("Debug: Error signing out:", signOutError)
          }
      }
     
     
-    func setupAuthListener() {
-        Auth.auth().addStateDidChangeListener { auth, user in
+//    func setupAuthListener() {
+//        Auth.auth().addStateDidChangeListener { auth, user in
+//            if let user = user {
+//                print("User is logged in with uid: \(user.uid)")
+//                self.userSession = user
+//            } else {
+//                print("User is logged out.")
+//                self.userSession = nil
+//            }
+//        }
+//    }
+    
+    //Fetch User
+    
+    func fetchUser(){
+        guard let uid = self.userSession?.uid else {
+            print("Debug Fetch User: User Session Is Empty")
+            return
+        }
+        service.fetchUser(uid: uid) { user, error in
+            if let error = error {
+                print("Debug: Error \(error.localizedDescription)")
+                return
+            }
             if let user = user {
-                print("User is logged in with uid: \(user.uid)")
-                self.userSession = user
-            } else {
-                print("User is logged out.")
-                self.userSession = nil
+                DispatchQueue.main.async {
+                    self.currentUser = user
+                    print("Fetch user: \(user.firstName)")
+                }
+            }else{
+                print("User Not Found")
             }
         }
     }

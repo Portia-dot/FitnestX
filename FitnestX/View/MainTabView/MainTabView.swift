@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @EnvironmentObject var auth: RegistrationAuth
+   
     init () {
         UITabBar.appearance().isHidden = true
     }
     @State private var selectedIndex: Int = 0
     var body: some View {
         TabView(selection: $selectedIndex){
-            HomeView()
-                .tag(0)
-            
+                HomeView(auth: auth)
+                    .tag(0)
             ActivityView()
                 .tag(1)
             ProgressTracker()
