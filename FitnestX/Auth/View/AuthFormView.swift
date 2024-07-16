@@ -80,6 +80,7 @@ struct AuthFormView: View {
                 .foregroundStyle(Color.customGrey)
                 .padding(.bottom, 30)
             HStack(spacing: 60){
+                //Google Login 
                 Button {
                     
                 } label: {

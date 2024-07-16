@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -18,8 +19,22 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     FirebaseApp.configure()
 
     return true
-
   }
+    
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var handled: Bool
+
+        handled = GIDSignIn.sharedInstance.handle(url)
+        if handled {
+            return true
+        }
+        return false
+    }
+    
+    
+
+    
 
 }
 
@@ -35,6 +50,9 @@ struct FitnestXApp: App {
             NavigationStack{
                 ContentView()
                     .environmentObject(RegistrationAuth.shared)
+                    .onOpenURL(perform: { url in
+                        GIDSignIn.sharedInstance.handle(url)
+                    })
             }
         }
     }

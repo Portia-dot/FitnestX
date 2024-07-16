@@ -44,13 +44,23 @@ class ProfileDetailsHelper: ObservableObject {
         guard let currentHeight = Double(height) else { return }
         
         if heightUnit == "CM" {
-            heightUnit = "FT"
-            height = String(format: "%.2f", currentHeight / 30.48)
+            heightUnit = "FT+IN"
+            let totalInches = currentHeight / 2.54
+            let feet = Int(totalInches / 12)
+            let inches = totalInches.truncatingRemainder(dividingBy: 12)
+            height = "\(feet)'\(String(format: "%.2f", inches))\""
         } else {
             heightUnit = "CM"
-            height = String(format: "%.2f", currentHeight * 30.48)
+            let components = height.split(separator: "'")
+            if components.count == 2,
+               let feet = Double(components[0]),
+               let inches = Double(components[1].replacingOccurrences(of: "\"", with: "")) {
+                let totalCm = (feet * 30.48) + (inches * 2.54)
+                height = String(format: "%.2f", totalCm)
+            }
         }
     }
+
     
     func loadRegistrationDetails(firstName: inout String, lastName: inout String, email: inout String, password: inout String, isChecked: inout Bool) {
         firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""

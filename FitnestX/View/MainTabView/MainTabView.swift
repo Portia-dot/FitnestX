@@ -19,9 +19,6 @@ struct MainTabView: View {
             if let user = auth.currentUser{
                 HomeView(user: user)
                     .tag(0)
-                    .onAppear {
-                        print("Debug: HomeView appeared with user \(user.firstName) \(user.lastName)")
-                    }
             }else{
                 Text("Loading")
                     .foregroundStyle(.red)

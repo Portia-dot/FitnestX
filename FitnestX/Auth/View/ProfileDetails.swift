@@ -30,6 +30,7 @@ struct ProfileDetails: View {
     @State private var navigateToMainTab = false
     
     let genders = ["Male", "Female"]
+    
     var body: some View {
         ScrollView{
             VStack(spacing: 10) {
