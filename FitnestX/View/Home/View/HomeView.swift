@@ -56,6 +56,9 @@ struct HomeView: View {
                 
             }
             .padding()
+            
+            HeartRateChartView(heartRateData: dummyHeartRateData)
+                .frame(height: 200)
             Spacer()
         }
     }

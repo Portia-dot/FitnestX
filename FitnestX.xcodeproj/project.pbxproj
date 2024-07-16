@@ -41,7 +41,8 @@
 		6E8765F42C3E497B00942603 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8765F32C3E497B00942603 /* OnboardingPage.swift */; };
 		6EAB466F2C4575AE00B3B09F /* RounedSectorSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB466E2C4575AE00B3B09F /* RounedSectorSpaceView.swift */; };
 		6EAB46712C4575CB00B3B09F /* BMIdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46702C4575CB00B3B09F /* BMIdata.swift */; };
-		6EAB46732C46297900B3B09F /* HealthStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46722C46297900B3B09F /* HealthStatusView.swift */; };
+		6EAB46732C46297900B3B09F /* HeartRateChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46722C46297900B3B09F /* HeartRateChartView.swift */; };
+		6EAB46762C46B91400B3B09F /* HeartRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46752C46B91400B3B09F /* HeartRateData.swift */; };
 		6EEEA2532C428F0D00CAC200 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEEA2522C428F0D00CAC200 /* UserService.swift */; };
 		6EEEA2552C42921700CAC200 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEEA2542C42921700CAC200 /* User.swift */; };
 		6EEEA2582C4345BB00CAC200 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6EEEA2572C4345BB00CAC200 /* GoogleSignIn */; };
@@ -80,7 +81,8 @@
 		6E8765F32C3E497B00942603 /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		6EAB466E2C4575AE00B3B09F /* RounedSectorSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RounedSectorSpaceView.swift; sourceTree = "<group>"; };
 		6EAB46702C4575CB00B3B09F /* BMIdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMIdata.swift; sourceTree = "<group>"; };
-		6EAB46722C46297900B3B09F /* HealthStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStatusView.swift; sourceTree = "<group>"; };
+		6EAB46722C46297900B3B09F /* HeartRateChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateChartView.swift; sourceTree = "<group>"; };
+		6EAB46752C46B91400B3B09F /* HeartRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateData.swift; sourceTree = "<group>"; };
 		6EEEA2522C428F0D00CAC200 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		6EEEA2542C42921700CAC200 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6EEEA25B2C43477E00CAC200 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		6E2C198C2C4177F40077D25B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				6EAB46742C46B8FA00B3B09F /* Model */,
 				6E2C198D2C4177FA0077D25B /* View */,
 			);
 			path = Home;
@@ -190,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				6E2C198E2C4178090077D25B /* HomeView.swift */,
-				6EAB46722C46297900B3B09F /* HealthStatusView.swift */,
+				6EAB46722C46297900B3B09F /* HeartRateChartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -329,6 +332,14 @@
 			path = ReusableExtensions;
 			sourceTree = "<group>";
 		};
+		6EAB46742C46B8FA00B3B09F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6EAB46752C46B91400B3B09F /* HeartRateData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,6 +431,7 @@
 				6E1034742C3ED62E002238DD /* RegisterView.swift in Sources */,
 				6EEEA2552C42921700CAC200 /* User.swift in Sources */,
 				6E2D4A3D2C3F8E4200FD13A7 /* AuthField.swift in Sources */,
+				6EAB46762C46B91400B3B09F /* HeartRateData.swift in Sources */,
 				6E1034792C3EDC24002238DD /* CheckBoxView.swift in Sources */,
 				6E2C198B2C4177DB0077D25B /* MainTabView.swift in Sources */,
 				6E8765E02C3E3C4800942603 /* ContentView.swift in Sources */,
@@ -441,7 +453,7 @@
 				6EEEA2532C428F0D00CAC200 /* UserService.swift in Sources */,
 				6E2C19982C4179080077D25B /* Profile.swift in Sources */,
 				6E2C19842C4170BE0077D25B /* ProfileHelper.swift in Sources */,
-				6EAB46732C46297900B3B09F /* HealthStatusView.swift in Sources */,
+				6EAB46732C46297900B3B09F /* HeartRateChartView.swift in Sources */,
 				6E2C19862C41727C0077D25B /* RegistrationViewHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
