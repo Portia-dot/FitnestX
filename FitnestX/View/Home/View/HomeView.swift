@@ -57,11 +57,11 @@ struct HomeView: View {
             }
             .padding()
             
-            HeartRateChartView(heartRateData: dummyHeartRateData)
-                .frame(height: 200)
+            ChartHomeView()
             Spacer()
         }
     }
+    
 }
 #Preview {
     HomeView(user: User(firstName: "John",
