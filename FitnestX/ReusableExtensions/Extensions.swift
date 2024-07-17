@@ -14,6 +14,7 @@ extension Color {
     static let customGrey = Color(hex: "#7B6F72")
     static let customLightBlue = Color(hex: "#9DCEFF")
     static let customPink = Color(hex: "#EEA4CE")
+    static let customWhite = Color(hex: "F6F5F5")
     
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)

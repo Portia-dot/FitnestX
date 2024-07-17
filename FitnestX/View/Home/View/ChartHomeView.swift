@@ -19,7 +19,6 @@ struct ChartHomeView: View {
     
     
     var body: some View {
-        NavigationStack {
             VStack{
                 VStack(alignment: .leading, spacing: 12, content: {
                                         HStack{
@@ -44,9 +43,9 @@ struct ChartHomeView: View {
                 })
                 .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill((scheme == .dark ? Color.black : Color.white).shadow(.drop(radius: 2)))
+                    Color.customPurple.opacity(0.1)
                 }
+                .cornerRadius(15, corners: .allCorners)
 //                Toggle("Chart Display", isOn: $isLineGraph)
 //                    .padding(.top)
             }
@@ -54,7 +53,6 @@ struct ChartHomeView: View {
             .padding()
             
         }
-    }
     
     
     @ViewBuilder
@@ -70,14 +68,14 @@ struct ChartHomeView: View {
                         x: .value("Hour", item.hours, unit: .hour),
                         y: .value("BPM", item.bpm)
                     )
-                    .foregroundStyle(Color.blue.gradient)
+                    .foregroundStyle(Color.customPurple.gradient)
                     .interpolationMethod(.catmullRom)
                     
                     AreaMark(
                         x: .value("Hour", item.hours, unit: .hour),
                         y: .value("BPM", item.bpm)
                     )
-                    .foregroundStyle(Color.blue.opacity(0.1))
+                    .foregroundStyle(Color.customPurple.opacity(0.1))
                     .interpolationMethod(.catmullRom)
                 } else {
                     BarMark(

@@ -15,6 +15,8 @@
 		6E23568E2C477A2A000A251F /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23568D2C477A29000A251F /* ChartData.swift */; };
 		6E2356902C477A48000A251F /* ChartHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23568F2C477A48000A251F /* ChartHomeView.swift */; };
 		6E2356922C47878E000A251F /* WaterIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356912C47878E000A251F /* WaterIntake.swift */; };
+		6E2356942C4810BE000A251F /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356932C4810BE000A251F /* SleepView.swift */; };
+		6E2356962C48287F000A251F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356952C48287F000A251F /* DashboardView.swift */; };
 		6E2C196D2C402E0A0077D25B /* ProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C196C2C402E0A0077D25B /* ProfileDetails.swift */; };
 		6E2C196F2C40E9CB0077D25B /* RegistrationAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C196E2C40E9CB0077D25B /* RegistrationAuth.swift */; };
 		6E2C19742C4159FD0077D25B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2C19732C4159FD0077D25B /* FirebaseAuth */; };
@@ -61,6 +63,8 @@
 		6E23568D2C477A29000A251F /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 		6E23568F2C477A48000A251F /* ChartHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHomeView.swift; sourceTree = "<group>"; };
 		6E2356912C47878E000A251F /* WaterIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntake.swift; sourceTree = "<group>"; };
+		6E2356932C4810BE000A251F /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
+		6E2356952C48287F000A251F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6E2C196C2C402E0A0077D25B /* ProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetails.swift; sourceTree = "<group>"; };
 		6E2C196E2C40E9CB0077D25B /* RegistrationAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAuth.swift; sourceTree = "<group>"; };
 		6E2C197F2C415B080077D25B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 				6E23568F2C477A48000A251F /* ChartHomeView.swift */,
 				6E2C198E2C4178090077D25B /* HomeView.swift */,
 				6E2356912C47878E000A251F /* WaterIntake.swift */,
+				6E2356932C4810BE000A251F /* SleepView.swift */,
+				6E2356952C48287F000A251F /* DashboardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -460,8 +466,10 @@
 				6E10346E2C3EC9A9002238DD /* CustomButton.swift in Sources */,
 				6E8765F42C3E497B00942603 /* OnboardingPage.swift in Sources */,
 				6EEEA2532C428F0D00CAC200 /* UserService.swift in Sources */,
+				6E2356962C48287F000A251F /* DashboardView.swift in Sources */,
 				6E2C19982C4179080077D25B /* Profile.swift in Sources */,
 				6E2C19842C4170BE0077D25B /* ProfileHelper.swift in Sources */,
+				6E2356942C4810BE000A251F /* SleepView.swift in Sources */,
 				6E2C19862C41727C0077D25B /* RegistrationViewHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
