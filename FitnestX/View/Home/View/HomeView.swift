@@ -58,10 +58,14 @@ struct HomeView: View {
                 }
                 .padding()
                 
-                ChartHomeView()
+                //Chart View
+            ChartHomeView()
                 
+               //Water Intake and sleep
               DashboardView()
-                Spacer()
+                
+                WorkoutProgressView()
+                    .frame(height: 300)
                 
             }
         }

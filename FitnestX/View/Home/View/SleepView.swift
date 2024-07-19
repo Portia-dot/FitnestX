@@ -8,21 +8,32 @@
 import SwiftUI
 
 struct SleepView: View {
+    var image: String?
+    var systemImage: String?
+    var title: String
+    var description: String
     var body: some View {
         VStack(spacing: 40){
             VStack(alignment: .leading, spacing: 10){
-                Text("Sleep")
+                Text(title)
                     .font(.callout)
                     .fontWeight(.bold)
-                Text("8h 20m")
+                Text(description)
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.customPurple)
-                
-                Image("Sleep-Graph")
+                if let image = image {
+                    Image(image)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(.top, 10)
+                }else if let systemImage = systemImage {
+                    Image(systemName: systemImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100)
+                    .frame(width: 20, height: 20)
+                    .padding(.top, 10)
+                }
             }
             .padding()
 //            .background(
@@ -36,7 +47,7 @@ struct SleepView: View {
 }
 
 #Preview {
-    CalorieTrackerView()
+    SleepView(systemImage: "figure.walk", title: "Sleep", description: "8h 20m")
 }
 
 struct CalorieTrackerView: View {
@@ -89,4 +100,7 @@ struct CalorieTrackerView: View {
 //                .shadow(color: Color.gray, radius: 5, x: 0, y: 2)
 //        )
     }
+   
 }
+
+

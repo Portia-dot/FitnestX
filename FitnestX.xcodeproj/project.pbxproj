@@ -17,6 +17,7 @@
 		6E2356922C47878E000A251F /* WaterIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356912C47878E000A251F /* WaterIntake.swift */; };
 		6E2356942C4810BE000A251F /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356932C4810BE000A251F /* SleepView.swift */; };
 		6E2356962C48287F000A251F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356952C48287F000A251F /* DashboardView.swift */; };
+		6E2356982C48D628000A251F /* WorkoutProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2356972C48D628000A251F /* WorkoutProgressView.swift */; };
 		6E2C196D2C402E0A0077D25B /* ProfileDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C196C2C402E0A0077D25B /* ProfileDetails.swift */; };
 		6E2C196F2C40E9CB0077D25B /* RegistrationAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C196E2C40E9CB0077D25B /* RegistrationAuth.swift */; };
 		6E2C19742C4159FD0077D25B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2C19732C4159FD0077D25B /* FirebaseAuth */; };
@@ -47,6 +48,7 @@
 		6EAB466F2C4575AE00B3B09F /* RounedSectorSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB466E2C4575AE00B3B09F /* RounedSectorSpaceView.swift */; };
 		6EAB46712C4575CB00B3B09F /* BMIdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46702C4575CB00B3B09F /* BMIdata.swift */; };
 		6EAB46762C46B91400B3B09F /* HeartRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB46752C46B91400B3B09F /* HeartRateData.swift */; };
+		6EC4A2572C4974C3009E8A47 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC4A2562C4974C3009E8A47 /* ProgressBar.swift */; };
 		6EEEA2532C428F0D00CAC200 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEEA2522C428F0D00CAC200 /* UserService.swift */; };
 		6EEEA2552C42921700CAC200 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEEA2542C42921700CAC200 /* User.swift */; };
 		6EEEA2582C4345BB00CAC200 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6EEEA2572C4345BB00CAC200 /* GoogleSignIn */; };
@@ -65,6 +67,7 @@
 		6E2356912C47878E000A251F /* WaterIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntake.swift; sourceTree = "<group>"; };
 		6E2356932C4810BE000A251F /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
 		6E2356952C48287F000A251F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		6E2356972C48D628000A251F /* WorkoutProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressView.swift; sourceTree = "<group>"; };
 		6E2C196C2C402E0A0077D25B /* ProfileDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetails.swift; sourceTree = "<group>"; };
 		6E2C196E2C40E9CB0077D25B /* RegistrationAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAuth.swift; sourceTree = "<group>"; };
 		6E2C197F2C415B080077D25B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		6EAB466E2C4575AE00B3B09F /* RounedSectorSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RounedSectorSpaceView.swift; sourceTree = "<group>"; };
 		6EAB46702C4575CB00B3B09F /* BMIdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMIdata.swift; sourceTree = "<group>"; };
 		6EAB46752C46B91400B3B09F /* HeartRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateData.swift; sourceTree = "<group>"; };
+		6EC4A2562C4974C3009E8A47 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		6EEEA2522C428F0D00CAC200 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		6EEEA2542C42921700CAC200 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6EEEA25B2C43477E00CAC200 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 				6E1034782C3EDC24002238DD /* CheckBoxView.swift */,
 				6EAB466E2C4575AE00B3B09F /* RounedSectorSpaceView.swift */,
 				6EAB46702C4575CB00B3B09F /* BMIdata.swift */,
+				6EC4A2562C4974C3009E8A47 /* ProgressBar.swift */,
 			);
 			path = ReuseableView;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				6E2356912C47878E000A251F /* WaterIntake.swift */,
 				6E2356932C4810BE000A251F /* SleepView.swift */,
 				6E2356952C48287F000A251F /* DashboardView.swift */,
+				6E2356972C48D628000A251F /* WorkoutProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,7 +455,9 @@
 				6E2356922C47878E000A251F /* WaterIntake.swift in Sources */,
 				6E2C198B2C4177DB0077D25B /* MainTabView.swift in Sources */,
 				6E8765E02C3E3C4800942603 /* ContentView.swift in Sources */,
+				6E2356982C48D628000A251F /* WorkoutProgressView.swift in Sources */,
 				6E2C19892C4175960077D25B /* CustomTab.swift in Sources */,
+				6EC4A2572C4974C3009E8A47 /* ProgressBar.swift in Sources */,
 				6E1034692C3EC296002238DD /* MainViewAuth.swift in Sources */,
 				6EAB466F2C4575AE00B3B09F /* RounedSectorSpaceView.swift in Sources */,
 				6E2C19932C41786C0077D25B /* ActivityView.swift in Sources */,

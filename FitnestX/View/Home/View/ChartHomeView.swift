@@ -77,6 +77,7 @@ struct ChartHomeView: View {
                     )
                     .foregroundStyle(Color.customPurple.opacity(0.1))
                     .interpolationMethod(.catmullRom)
+                    
                 } else {
                     BarMark(
                         x: .value("Hour", item.hours, unit: .hour),
