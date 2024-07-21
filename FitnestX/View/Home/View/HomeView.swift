@@ -9,11 +9,15 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var auth: RegistrationAuth
+    @State private var showNotificationSheet: Bool = false
+    @State private var hasNotifcation: Bool = true
     let user: User
+    
     //User
     var body: some View {
         ScrollView{
             VStack(spacing: 20){
+            
                 HStack{
                     VStack(alignment: .leading){
                         Text("Welcome Back")
@@ -26,11 +30,32 @@ struct HomeView: View {
                     }
                     Spacer()
                     
-                    Image("Notification")
-                        .resizable()
-                        .frame(width: 20, height: 20)
+                    
+                    ZStack{
+                        Button {
+                            showNotificationSheet = true
+                        } label: {
+                            Image("Notification")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        }
+                        
+                        if hasNotifcation {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 4, height: 4)
+                                .offset(x: 3, y: -7)
+                            
+                        }
+                    }
+                    .navigationDestination(isPresented: $showNotificationSheet) {
+                        NotificationView()
+                    }
+                    
                 }
                 .padding()
+                
+                
                 RoundedSectorSpaceView(weight: user.weightInDouble, height: user.heightInDouble, heightUnit: user.heightUnit, weightUnit: user.weightUnit)
                 
                 VStack{
@@ -52,7 +77,7 @@ struct HomeView: View {
                         .padding()
                     }
                     .padding(.horizontal)
-                    .background(Color.customLightBlue)
+                    .background(Color.customPurple.opacity(0.4))
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     
                 }
@@ -66,6 +91,18 @@ struct HomeView: View {
                 
                 WorkoutProgressView()
                     .frame(height: 300)
+                
+                //Workout
+                VStack(alignment: .leading){
+                    Text("Latest Workout")
+                        .foregroundStyle(Color.customDark)
+                        .font(.headline)
+                        .bold()
+                    
+                    WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic")
+                    WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic-2")
+                    WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic-1")
+                }
                 
             }
         }
@@ -91,3 +128,4 @@ struct HomeView: View {
                             dateOfBirth: Date()))
             .environmentObject(RegistrationAuth())
 }
+

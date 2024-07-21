@@ -74,18 +74,18 @@ struct RoundedSectorSpaceView: View {
                     }
                     .chartLegend(.hidden)
                     .frame(width: 100, height: 100)
-                    .overlay {
-                        Text(String(format: "%.1f", calculatedBMI))
-                            .font(.footnote)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.customDark)
-                    }
+//                    .overlay {
+//                        Text(String(format: "%.1f", calculatedBMI))
+//                            .font(.footnote)
+//                            .fontWeight(.bold)
+//                            .foregroundStyle(Color.customDark)
+//                    }
                 }
                 .padding(.trailing, 16) 
             }
             .padding()
             .background(
-                LinearGradient(colors: [Color.customBlue.opacity(0.7), Color.customBlue.opacity(0.7)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(colors: [Color.customPurple.opacity(0.7), Color.customPurple.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing)
             )
             .clipShape(RoundedRectangle(cornerRadius: 25))
             .padding(.horizontal, 16) // Add horizontal padding around the entire view

@@ -11,7 +11,7 @@ import Charts
 struct WorkoutProgressView: View {
     @State private var selectedWorkOut: WorkoutData?
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             Text("Workout Progress")
                 .foregroundStyle(.black)
                 .font(.headline)

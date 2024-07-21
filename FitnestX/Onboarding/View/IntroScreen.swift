@@ -64,4 +64,5 @@ struct IntroScreen: View {
 
 #Preview {
     IntroScreen()
+        .environmentObject(RegistrationAuth())
 }
