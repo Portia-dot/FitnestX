@@ -27,7 +27,20 @@ struct NotificationView: View {
                                 .foregroundStyle(Color.customGrey)
                         }
                     }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    
+                } label: {
+                    Image("More Circle")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(Color.customGrey)
                 }
+
+            }
+                }
+        
+        
 
         
     }
