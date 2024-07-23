@@ -93,15 +93,31 @@ struct NotificationsView: View {
                 
             }
             Spacer()
-            Image("More Circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 25, height: 25)
+            Menu{
+                Button("Delete", action: deleteNotification)
+                Button("View", action: viewNotification)
+            }label: {
+                            Image("More Circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 20, height: 20)
+                
+            }
         }
         .padding(.horizontal)
         Divider()
     }
+    //Delete Notification
     
+    func deleteNotification(){
+        
+    }
+    
+    //View Notification
+    func viewNotification(){
+        
+    }
+    //Time Ago
     func timeAgo(since date: Date) -> String{
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
