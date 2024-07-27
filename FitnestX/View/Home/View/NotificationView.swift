@@ -73,6 +73,7 @@ struct NotificationView: View {
 struct NotificationsView: View {
     
     var notification: Notification
+//    var onDelete: (No)
 
     var body: some View {
         HStack(spacing: 20){
@@ -94,8 +95,8 @@ struct NotificationsView: View {
             }
             Spacer()
             Menu{
-                Button("Delete", action: deleteNotification)
-                Button("View", action: viewNotification)
+                Button("Delete", systemImage: "trash", action: deleteNotification)
+                Button("View", systemImage: "ellipsis.circle", action: viewNotification)
             }label: {
                             Image("More Circle")
                                 .resizable()

@@ -28,8 +28,15 @@ struct MainTabView: View {
                 .tag(1)
             ProgressTracker()
                 .tag(2)
-            Profile()
-                .tag(3)
+            if let user = auth.currentUser{
+                Profile(user: user)
+                    .tag(3)
+            }else{
+                Text("Loading.....")
+                    .foregroundStyle(.red)
+                    .tag(3)
+            }
+            
         }
         .onChange(of: selectedIndex) { oldIndex, newIndex in
             if newIndex == 0 {
