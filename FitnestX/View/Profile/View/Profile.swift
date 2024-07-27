@@ -12,61 +12,72 @@ struct Profile: View {
     @Environment (\.dismiss) var dismiss
     @EnvironmentObject var auth : RegistrationAuth
     @State private var shouldNavigateToLogin = false
+    @State private var showNotification = true
     let user: User
     var body: some View {
-        VStack(spacing: 10){
-            //User Card
-            userCard()
-            HStack(spacing: 10){
-                userDetailsCard(detail: user.height, detailUnit: user.heightUnit, title: "Height")
-                userDetailsCard(detail: user.weight, detailUnit: user.weightUnit, title: "Weight")
-                userDetailsCard(detail: "\(user.age)", detailUnit: "Yo", title: "Age")
-            }
-            accountCard()
-                .padding()
-            Spacer()
-            CustomButtonView(isTapped: $isTapped, buttonBackgroundColor: Color.customPurple, buttonTextColor: Color.customGrey, label: "Log Out") {
-                auth.logout()
-                
-            }
-            
-        }
-        .navigationTitle("Notification")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image("Back-Navs")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundStyle(Color.customGrey)
+        
+        ScrollView {
+            VStack(spacing: 20){
+                //User Card
+                userCard()
+                HStack(spacing: 15){
+                    userDetailsCard(detail: user.height, detailUnit: user.heightUnit, title: "Height")
+                    userDetailsCard(detail: user.weight, detailUnit: user.weightUnit, title: "Weight")
+                    userDetailsCard(detail: "\(user.age)", detailUnit: "Yo", title: "Age")
                 }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
+                accountCard()
+                
+                //Notification Toggle View
+                notificationView()
+
+                
+                othersCard()
+                
+                Spacer()
+                CustomButtonView(isTapped: $isTapped, buttonBackgroundColor: Color.customPurple, buttonTextColor: Color.customGrey, label: "Log Out") {
+                    auth.logout()
                     
-                } label: {
-                    Image("More Circle")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundStyle(Color.customGrey)
                 }
                 
             }
+            .padding()
+            .navigationTitle("Notification")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image("Back-Navs")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundStyle(Color.customGrey)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image("More Circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundStyle(Color.customGrey)
+                    }
+                    
+                }
+        }
         }
         
-        //        .onReceive(auth.$userSession) {userSession in
-        //            if userSession == nil{
-        //                shouldNavigateToLogin = true
-        //            }
-        //        }
-        //        .fullScreenCover(isPresented: $shouldNavigateToLogin, content: {
-        //            LoginView(authMode: .constant(.login))
-        //                .environmentObject(auth)
-        //        })
+                .onReceive(auth.$userSession) {userSession in
+                    if userSession == nil{
+                        shouldNavigateToLogin = true
+                    }
+                }
+                .fullScreenCover(isPresented: $shouldNavigateToLogin, content: {
+                    LoginView(authMode: .constant(.login))
+                        .environmentObject(auth)
+                })
     }
     @ViewBuilder
     func userCard() -> some View {
@@ -114,8 +125,8 @@ struct Profile: View {
                         .opacity(isTapped ? 0.8 : 1.0)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 20)
+//            .padding(.horizontal, 20)
+//            .padding(.vertical, 20)
         }
 
     }
@@ -123,10 +134,16 @@ struct Profile: View {
     @ViewBuilder
     func userDetailsCard(detail: String, detailUnit: String, title: String) -> some View {
           VStack(spacing: 10) {
-              Text(detail + detailUnit)
-                  .font(.title3)
-                  .foregroundStyle(Color.customPurple)
-                  .bold()
+              HStack(alignment: .lastTextBaseline, spacing: 2){
+                  Text(detail)
+                      .font(.title3)
+                      .foregroundStyle(Color.customPurple)
+                      .bold()
+                  Text(detailUnit.lowercased())
+                    .font(.title3)
+                    .foregroundStyle(Color.customPurple)
+                    .bold()
+              }
               Text(title)
                   .font(.footnote)
                   .foregroundStyle(Color.customGrey)
@@ -146,39 +163,114 @@ struct Profile: View {
             Image(systemName: imageName)
                 .resizable()
                 .frame(width: 20, height: 20)
-            Spacer()
+//                .padding(.horizontal, 10)
+                .foregroundStyle(Color.customBlue)
             Text(title)
                 .font(.footnote)
-                .foregroundStyle(Color.customBlue)
+                .foregroundStyle(Color.customGrey)
                 .bold()
             Spacer()
             Image(systemName: "chevron.right")
         }
-        .padding(.horizontal)
     }
     
     @ViewBuilder
     func accountCard() -> some View {
         VStack{
-            VStack{
+            VStack(alignment: .leading){
                 Text("Account")
                     .font(.title3)
                     .foregroundStyle(Color.customDark)
                     .bold()
+                    .padding(.bottom, 20)
                 
                 accountCardReuseable(imageName: "person.crop.circle", title: "Personal Information")
-                accountCardReuseable(imageName: "person.crop.circle", title: "Personal Information")
-                accountCardReuseable(imageName: "person.crop.circle", title: "Personal Information")
-                accountCardReuseable(imageName: "person.crop.circle", title: "Personal Information")
+                accountCardReuseable(imageName: "list.bullet.clipboard", title: "Acheivement")
+                accountCardReuseable(imageName: "chart.pie", title: "Activity History")
+                accountCardReuseable(imageName: "chart.line.uptrend.xyaxis", title: "Workout Progress")
             }
+            .padding()
         }
-        .padding(.vertical, 10)
+        .padding(10)
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
     }
     
-   
+    
+    @ViewBuilder
+    func notificationView() -> some View{
+        VStack{
+            VStack(alignment: .leading){
+                Text("Notification")
+                    .font(.title3)
+                    .foregroundStyle(Color.customDark)
+                    .bold()
+                    .padding(.bottom, 10)
+                
+                
+                HStack{
+                    Image(systemName: "bell")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Color.customBlue)
+                    Text("Pop-up Notification")
+                        .font(.footnote)
+                        .foregroundStyle(Color.customGrey)
+                        .bold()
+                    Spacer()
+                    RoundedRectangle(cornerRadius: 16, style: .circular)
+                        .fill(showNotification ? Color.customBlue : Color.customWhite)
+                        .frame(width: 50, height: 29)
+                        .overlay{
+                            Circle()
+                                .fill(showNotification ? Color.customWhite : Color.customBlue)
+                                .shadow(radius: 1, x:0, y:1)
+                                .padding(1.5)
+                                .offset(x: showNotification ? 10 : -10)
+                                .animation(Animation.easeInOut(duration: 0.2))
+                                .onTapGesture {
+                                    showNotification.toggle()
+                                }
+                        }
+            
+                    
+                    
+                }
+                
+            }
+            .padding()
+        }
+        .padding(10)
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+    }
+    
+   //Others
+    
+    @ViewBuilder
+    func othersCard() -> some View {
+        VStack{
+            VStack(alignment: .leading){
+                Text("Others")
+                    .font(.title3)
+                    .foregroundStyle(Color.customDark)
+                    .bold()
+                    .padding(.bottom, 20)
+                
+                accountCardReuseable(imageName: "envelope.open.badge.clock", title: "Contact Us")
+                accountCardReuseable(imageName: "shield.lefthalf.filled.badge.checkmark", title: "Privacy Policy")
+                accountCardReuseable(imageName: "gear", title: "Setting")
+                accountCardReuseable(imageName: "newspaper", title: "Updates")
+            }
+            .padding()
+        }
+        .padding(10)
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+    }
 }
 
 #Preview {
