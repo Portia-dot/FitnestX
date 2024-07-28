@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E0C0FFF2C55B4C00059FE7F /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0C0FFE2C55B4C00059FE7F /* ActivityData.swift */; };
+		6E0C10012C55B4E20059FE7F /* ActivityBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0C10002C55B4E20059FE7F /* ActivityBar.swift */; };
+		6E0C10032C55B6B90059FE7F /* ActivityProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0C10022C55B6B90059FE7F /* ActivityProgressView.swift */; };
 		6E1034692C3EC296002238DD /* MainViewAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1034682C3EC296002238DD /* MainViewAuth.swift */; };
 		6E10346E2C3EC9A9002238DD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E10346D2C3EC9A9002238DD /* CustomButton.swift */; };
 		6E1034702C3ED3F9002238DD /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E10346F2C3ED3F9002238DD /* CustomTextField.swift */; };
@@ -60,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E0C0FFE2C55B4C00059FE7F /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityData.swift; sourceTree = "<group>"; };
+		6E0C10002C55B4E20059FE7F /* ActivityBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityBar.swift; sourceTree = "<group>"; };
+		6E0C10022C55B6B90059FE7F /* ActivityProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityProgressView.swift; sourceTree = "<group>"; };
 		6E1034682C3EC296002238DD /* MainViewAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewAuth.swift; sourceTree = "<group>"; };
 		6E10346D2C3EC9A9002238DD /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		6E10346F2C3ED3F9002238DD /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -236,6 +242,9 @@
 			isa = PBXGroup;
 			children = (
 				6E2C19922C41786C0077D25B /* ActivityView.swift */,
+				6E0C0FFE2C55B4C00059FE7F /* ActivityData.swift */,
+				6E0C10002C55B4E20059FE7F /* ActivityBar.swift */,
+				6E0C10022C55B6B90059FE7F /* ActivityProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -456,6 +465,7 @@
 				6E2C196D2C402E0A0077D25B /* ProfileDetails.swift in Sources */,
 				6E2C196F2C40E9CB0077D25B /* RegistrationAuth.swift in Sources */,
 				6E1034742C3ED62E002238DD /* RegisterView.swift in Sources */,
+				6E0C10032C55B6B90059FE7F /* ActivityProgressView.swift in Sources */,
 				6EEEA2552C42921700CAC200 /* User.swift in Sources */,
 				6E2D4A3D2C3F8E4200FD13A7 /* AuthField.swift in Sources */,
 				6EAB46762C46B91400B3B09F /* HeartRateData.swift in Sources */,
@@ -474,6 +484,7 @@
 				6E2C19932C41786C0077D25B /* ActivityView.swift in Sources */,
 				6EAB46712C4575CB00B3B09F /* BMIdata.swift in Sources */,
 				6E8765EF2C3E3F5500942603 /* IntroScreen.swift in Sources */,
+				6E0C0FFF2C55B4C00059FE7F /* ActivityData.swift in Sources */,
 				6E8765DE2C3E3C4800942603 /* FitnestXApp.swift in Sources */,
 				6E23568E2C477A2A000A251F /* ChartData.swift in Sources */,
 				6E2C199B2C41792E0077D25B /* ProgressTracker.swift in Sources */,
@@ -490,6 +501,7 @@
 				6E2C19982C4179080077D25B /* Profile.swift in Sources */,
 				6E2C19842C4170BE0077D25B /* ProfileHelper.swift in Sources */,
 				6E2356942C4810BE000A251F /* SleepView.swift in Sources */,
+				6E0C10012C55B4E20059FE7F /* ActivityBar.swift in Sources */,
 				6E2C19862C41727C0077D25B /* RegistrationViewHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
