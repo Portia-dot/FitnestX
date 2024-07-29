@@ -28,7 +28,7 @@ struct ActivityProgressView: View {
     private var headerView: some View {
         HStack{
             Text("Activity Progress")
-                .font(.title2)
+                .font(.title3)
                 .bold()
             Spacer()
             periodSelector

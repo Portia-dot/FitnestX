@@ -9,43 +9,23 @@ import SwiftUI
 
 struct ActivityView: View {
     @Environment (\.dismiss) var dismiss
+    let lastest: [LatestActivityData] = LatestActivityData.sampleData
+
     let horizontalPadding: CGFloat = 20
     
     var body: some View {
         ScrollView{
-            VStack(spacing: 20){
+            VStack(alignment:.leading, spacing: 20){
                 targetView()
                 ActivityProgressView()
                    .frame(width: UIScreen.main.bounds.width - 2 * horizontalPadding, height: 350)
-                Text("Hello")
+                latestActivity
             }
             .padding(.horizontal, horizontalPadding)
             .navigationTitle("Notification")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image("Back-Navs")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.customGrey)
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image("More Circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.customGrey)
-                    }
-                    
-                }
-            }
+
         }
     }
     @ViewBuilder
@@ -105,6 +85,57 @@ struct ActivityView: View {
         .background(Color.customBlue.opacity(0.3))
         .cornerRadius(15, corners: .allCorners)
 
+    }
+    
+    @ViewBuilder
+    func reuseableCard(activity: LatestActivityData) -> some View {
+        VStack(alignment:.leading){
+            HStack{
+                Image(activity.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50)
+                VStack(alignment:.leading){
+                    Text(activity.title)
+                        .font(.footnote)
+                        .bold()
+                        .foregroundStyle(Color.customDark)
+                    Text(activity.timeAgo)
+                        .font(.caption)
+                        .foregroundStyle(Color.customGrey)
+                }
+                .padding(.horizontal)
+                Spacer()
+                Image("more-vertical")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 10, height: 20)
+            }
+            .padding()
+            .background(Color.customWhite)
+            .cornerRadius(15, corners: .allCorners)
+        }
+        .padding(.bottom, 10)
+        
+    }
+    
+    private var latestActivity: some View {
+        VStack(spacing: 10){
+            HStack{
+                Text("Latest Activity")
+                    .font(.title3)
+                    .bold()
+                Spacer()
+                Text("See more")
+                    .font(.footnote)
+                    .foregroundStyle(Color.customGrey)
+            }
+            .padding(.bottom)
+            ForEach(lastest, id: \.timeAgo){activity in
+                reuseableCard(activity: activity)
+            }
+            
+        }
     }
 }
 

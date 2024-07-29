@@ -44,6 +44,7 @@
 		6E4DD5932C4CD7D0007973D1 /* WorkOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DD5922C4CD7D0007973D1 /* WorkOut.swift */; };
 		6E4DD5952C4D69F4007973D1 /* BarProgessStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DD5942C4D69F4007973D1 /* BarProgessStyle.swift */; };
 		6E4DD5992C4DAFD4007973D1 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DD5982C4DAFD4007973D1 /* NotificationView.swift */; };
+		6E61E0BF2C57B0A300A8CF6E /* LatestActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E61E0BE2C57B0A300A8CF6E /* LatestActivityData.swift */; };
 		6E8765DE2C3E3C4800942603 /* FitnestXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8765DD2C3E3C4800942603 /* FitnestXApp.swift */; };
 		6E8765E02C3E3C4800942603 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8765DF2C3E3C4800942603 /* ContentView.swift */; };
 		6E8765E22C3E3C5D00942603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E8765E12C3E3C5D00942603 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		6E4DD5922C4CD7D0007973D1 /* WorkOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOut.swift; sourceTree = "<group>"; };
 		6E4DD5942C4D69F4007973D1 /* BarProgessStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarProgessStyle.swift; sourceTree = "<group>"; };
 		6E4DD5982C4DAFD4007973D1 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		6E61E0BE2C57B0A300A8CF6E /* LatestActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestActivityData.swift; sourceTree = "<group>"; };
 		6E8765DA2C3E3C4800942603 /* FitnestX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnestX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8765DD2C3E3C4800942603 /* FitnestXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnestXApp.swift; sourceTree = "<group>"; };
 		6E8765DF2C3E3C4800942603 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				6E0C0FFE2C55B4C00059FE7F /* ActivityData.swift */,
 				6E0C10002C55B4E20059FE7F /* ActivityBar.swift */,
 				6E0C10022C55B6B90059FE7F /* ActivityProgressView.swift */,
+				6E61E0BE2C57B0A300A8CF6E /* LatestActivityData.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E2C196D2C402E0A0077D25B /* ProfileDetails.swift in Sources */,
+				6E61E0BF2C57B0A300A8CF6E /* LatestActivityData.swift in Sources */,
 				6E2C196F2C40E9CB0077D25B /* RegistrationAuth.swift in Sources */,
 				6E1034742C3ED62E002238DD /* RegisterView.swift in Sources */,
 				6E0C10032C55B6B90059FE7F /* ActivityProgressView.swift in Sources */,
