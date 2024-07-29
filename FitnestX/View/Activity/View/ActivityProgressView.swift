@@ -9,60 +9,103 @@ import SwiftUI
 
 struct ActivityProgressView: View {
     @State private var selectedPeriod: String = "Weekly"
-    let data: [ActivityData]
+    @State private var data: [ActivityData] = []
     var body: some View {
         VStack(alignment: .leading) {
+            headerView
+            
+            if selectedPeriod == "Weekly" {
+                weeklyView
+            }else {
+                monthlyView
+            }
+        }
+        .onAppear{
+            data = ActivityData.monthlyData
+        }
+    }
+    
+    private var headerView: some View {
+        HStack{
+            Text("Activity Progress")
+                .font(.title2)
+                .bold()
+            Spacer()
+            periodSelector
+        }
+        .padding()
+    }
+    private var periodSelector: some View {
+        Menu{
+            Button("Weekly", action: {
+                withAnimation{
+                    selectedPeriod = "Weekly"
+                    data = ActivityData.monthlyData
+                }
+            })
+            Button("Monthly", action: {
+                withAnimation{
+                    selectedPeriod = "Monthly"
+                    data = ActivityData.monthlyData.weeklyAverage()
+                }
+                
+            })
+        }label: {
             HStack{
-                Text("Activity Progress")
-                    .font(.title2)
-                    .bold()
-                Spacer()
-                Menu{
-                    Button("Weekly", action: {selectedPeriod = "Weekly"})
-                    Button("Monthly", action: {selectedPeriod = "Monthly"})
-                }label: {
-                    HStack{
-                        Text(selectedPeriod)
-                        Image(systemName: "chevron.down")
-                    }
-                    .foregroundStyle(Color.customWhite)
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(Color.customBlue)
-                    .cornerRadius(15, corners: .allCorners)
-                    
+                Text(selectedPeriod)
+                Image(systemName: "chevron.down")
+            }
+            .foregroundStyle(Color.customWhite)
+            .padding(.horizontal)
+            .padding(.vertical, 13)
+            .background(Color.customBlue)
+            .cornerRadius(15, corners: .allCorners)
+            
+        }
+    }
+    private var weeklyView: some View {
+        TabView{
+            ForEach(0..<numberOfWeek(), id: \.self){week in
+                weekDataView(for: week)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+    }
+    
+    private func numberOfWeek() -> Int {
+        (data.count + 6) / 7
+    }
+    
+    private func weekDataView(for week: Int) -> some View {
+        let startIndex = week * 7
+        let endIndex = min((week + 1) * 7, data.count)
+        let weekData = Array(data[startIndex..<endIndex])
+        
+        return barChartView(for: weekData)
+    }
+    
+    private var monthlyView: some View {
+        barChartView(for: data)
+    }
+    
+    private func barChartView(for items: [ActivityData]) -> some View {
+            HStack(alignment: .bottom, spacing: 15) {
+                ForEach(items, id: \.day) { item in
+                    ActivityBar(data: item, maxValue: data.map { $0.value }.max() ?? 1)
                 }
             }
             .padding()
-            
-            HStack(alignment: .bottom, spacing: 15, content: {
-                ForEach(data, id: \.day){item in
-                    ActivityBar(data: item, maxValue: data.map{$0.value}.max() ?? 1)
-                }
-            })
-            .padding()
-            .background(Color.customWhite.opacity(0.2))
-            .cornerRadius(20, corners: .allCorners)
+            .background(Color.customWhite.opacity(0.5))
+            .cornerRadius(20)
             .shadow(radius: 10)
             .padding()
-
         }
-    }
 }
 
 struct ActivityProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        let data = [
-            ActivityData(day: "Sun", value: 30, gradient: Gradient(colors: [.blue, .purple])),
-            ActivityData(day: "Mon", value: 80, gradient: Gradient(colors: [.pink, .purple])),
-            ActivityData(day: "Tue", value: 60, gradient: Gradient(colors: [.blue, .purple])),
-            ActivityData(day: "Wed", value: 100, gradient: Gradient(colors: [.pink, .purple])),
-            ActivityData(day: "Thu", value: 90, gradient: Gradient(colors: [.blue, .purple])),
-            ActivityData(day: "Fri", value: 50, gradient: Gradient(colors: [.pink, .purple])),
-            ActivityData(day: "Sat", value: 70, gradient: Gradient(colors: [.blue, .purple]))
-        ]
         
-        ActivityProgressView(data: data)
+        ActivityProgressView()
             .previewLayout(.sizeThatFits)
             .padding()
     }

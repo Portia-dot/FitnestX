@@ -9,23 +9,17 @@ import SwiftUI
 
 struct ActivityView: View {
     @Environment (\.dismiss) var dismiss
-    let data = [
-        ActivityData(day: "Sun", value: 30, gradient: Gradient(colors: [.blue, .purple])),
-        ActivityData(day: "Mon", value: 80, gradient: Gradient(colors: [.pink, .purple])),
-        ActivityData(day: "Tue", value: 60, gradient: Gradient(colors: [.blue, .purple])),
-        ActivityData(day: "Wed", value: 100, gradient: Gradient(colors: [.pink, .purple])),
-        ActivityData(day: "Thu", value: 90, gradient: Gradient(colors: [.blue, .purple])),
-        ActivityData(day: "Fri", value: 50, gradient: Gradient(colors: [.pink, .purple])),
-        ActivityData(day: "Sat", value: 70, gradient: Gradient(colors: [.blue, .purple]))
-    ]
+    let horizontalPadding: CGFloat = 20
     
     var body: some View {
         ScrollView{
             VStack(spacing: 20){
                 targetView()
-                ActivityProgressView(data: data)
+                ActivityProgressView()
+                   .frame(width: UIScreen.main.bounds.width - 2 * horizontalPadding, height: 350)
+                Text("Hello")
             }
-            .padding()
+            .padding(.horizontal, horizontalPadding)
             .navigationTitle("Notification")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)

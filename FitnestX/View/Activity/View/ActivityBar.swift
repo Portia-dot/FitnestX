@@ -12,11 +12,14 @@ struct ActivityBar: View {
     var maxValue: CGFloat
     var body: some View {
         VStack{
-            ZStack{
-//                RoundedRectangle(cornerRadius: 10)
-//                                .fill(Color.gray.opacity(0.3))
-//                                .frame(height: 20)
-//                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+            ZStack(alignment: .bottom){
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.customGrey.opacity(0.2))
+                    .frame(height: 200)
+                    .overlay{
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.customDark.opacity(0.5))
+                    }
                 RoundedRectangle(cornerRadius: 10)
                     .fill(LinearGradient(gradient: data.gradient, startPoint: .bottom, endPoint: .top))
                     .frame(height: data.value / maxValue * 200)
@@ -33,7 +36,7 @@ struct ActivityBar: View {
 struct ActivityBar_Previews: PreviewProvider {
     static var previews: some View {
         ActivityBar(
-            data: ActivityData(day: "Mon", value: 80, gradient: Gradient(colors: [.pink, .purple])),
+            data: ActivityData(day: "Mon", value: 50, gradient: Gradient(colors: [.pink, .purple])),
             maxValue: 100
         )
         .previewLayout(.sizeThatFits)
