@@ -10,6 +10,7 @@ import SwiftUI
 struct ActivityView: View {
     @Environment (\.dismiss) var dismiss
     let lastest: [LatestActivityData] = LatestActivityData.sampleData
+    @State private var showFullActivity = false
 
     let horizontalPadding: CGFloat = 20
     
@@ -25,8 +26,11 @@ struct ActivityView: View {
             .navigationTitle("Notification")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-
         }
+        .sheet(isPresented: $showFullActivity) {
+            ActivityDetailsView()
+        }
+
     }
     @ViewBuilder
     func targetReuseable(imageName: String, title: String, objective: String) -> some View {
@@ -119,6 +123,40 @@ struct ActivityView: View {
         
     }
     
+    @ViewBuilder
+    func ActivityDetailsView() -> some View {
+        @Environment (\.dismiss) var dismiss
+        NavigationStack{
+            ScrollView{
+                VStack{
+                    ForEach(lastest, id: \.timeAgo){activity in
+                        reuseableCard(activity: activity)
+                    }
+                }
+                .padding(.top, 20)
+                .padding(.horizontal)
+                .navigationTitle("All Activities")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                           //Dismiss Sheet
+                            $showFullActivity.wrappedValue = false
+                        }) {
+                            Image("Back-Navs")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundStyle(Color.customGrey)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
     private var latestActivity: some View {
         VStack(spacing: 10){
             HStack{
@@ -126,12 +164,17 @@ struct ActivityView: View {
                     .font(.title3)
                     .bold()
                 Spacer()
-                Text("See more")
+                Button("See more"){
+                    withAnimation(.spring()){
+                        showFullActivity = true
+                    }
+                    
+                }
                     .font(.footnote)
                     .foregroundStyle(Color.customGrey)
             }
             .padding(.bottom)
-            ForEach(lastest, id: \.timeAgo){activity in
+            ForEach(lastest.prefix(2), id: \.timeAgo){activity in
                 reuseableCard(activity: activity)
             }
             
