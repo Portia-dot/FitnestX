@@ -33,7 +33,7 @@ struct WorkOut: View {
                         .fixedSize(horizontal: true, vertical: false)
                         .foregroundStyle(Color.customGrey)
                     HStack{
-                        BarProgessStyle(progress: 0.7, width: 200, height: 10, backgroundColor: Color.customWhite, foregroundColor: Color.customPurple, cornerRadius: 10, roundedCorners: [.topLeft, .bottomLeft])
+                        BarProgessStyle(progress: 0.7, width: 200, height: 10, backgroundColor: Color.white, foregroundColor: Color.customPurple, cornerRadius: 10, roundedCorners: [.topLeft, .bottomLeft])
                     }
                     .padding(.top, 4)
                 }
@@ -52,8 +52,8 @@ struct WorkOut: View {
             }
         }
         .padding()
-        .background(Color.white)
-        .shadow(radius: 10)
+        .background(Color.customWhite)
+        .shadow(radius: 50)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         
     }

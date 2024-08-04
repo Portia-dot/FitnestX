@@ -11,6 +11,8 @@ struct HomeView: View {
     @EnvironmentObject var auth: RegistrationAuth
     @State private var showNotificationSheet: Bool = false
     @State private var hasNotifcation: Bool = true
+    @State private var showFullWorkout: Bool = false
+    let workouts: [WorkoutsData] = WorkoutsData.sampleData
     let user: User
     
     //User
@@ -88,21 +90,37 @@ struct HomeView: View {
                     DashboardView()
                     
                     WorkoutProgressView()
-                        .frame(height: 300)
+                        .frame(height: 350)
                     
                     //Workout
-                    VStack(alignment: .leading){
-                        Text("Latest Workout")
-                            .foregroundStyle(Color.customDark)
-                            .font(.headline)
-                            .bold()
-                        
-                        WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic")
-                        WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic-2")
-                        WorkOut(title: "Fullbody Workout", calories: "180 Calories Burn", time: "20 Minutes", image: "Workout-Pic-1")
+                    VStack{
+                      
+                        HStack{
+                            Text("Latest Workout")
+                                .foregroundStyle(Color.customDark)
+                                .font(.headline)
+                                .bold()
+                            Spacer()
+                            Button("See more"){
+                                withAnimation(.spring()){
+                                    showFullWorkout = true
+                                }
+                                
+                            }
+                            .font(.footnote)
+                            .foregroundStyle(Color.customGrey)
+                        }
+                        .padding()
+    
+                        ForEach(workouts.prefix(2), id: \.title){workouts in
+                            WorkOut(title: workouts.title, calories: workouts.calories, time: workouts.time, image: workouts.imageName)
+                        }
                     }
                     
                 }
+            }
+            .sheet(isPresented: $showFullWorkout) {
+                ActivityDetailsView()
             }
             .background{
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -114,6 +132,42 @@ struct HomeView: View {
         }
         }
     }
+    
+    @ViewBuilder
+    func ActivityDetailsView() -> some View {
+        @Environment (\.dismiss) var dismiss
+        NavigationStack{
+            ScrollView{
+                VStack{
+                    ForEach(workouts, id: \.title){workouts in
+                        WorkOut(title: workouts.title, calories: workouts.calories, time: workouts.time, image: workouts.imageName)
+                    }
+                }
+                .padding()
+//                .padding(.top, 20)
+//                .padding(.horizontal)
+                .navigationTitle("All Workouts")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                           //Dismiss Sheet
+                            $showFullWorkout.wrappedValue = false
+                        }) {
+                            Image("Back-Navs")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundStyle(Color.customGrey)
+                        }
+                    }
+                }
+            }
+            .background(Color.white)
+        }
+        
+    }
+    
 }
 #Preview {
     HomeView(user: User(firstName: "John",

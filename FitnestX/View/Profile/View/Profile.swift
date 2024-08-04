@@ -228,7 +228,7 @@ struct Profile: View {
                                 .shadow(radius: 1, x:0, y:1)
                                 .padding(1.5)
                                 .offset(x: showNotification ? 10 : -10)
-                                .animation(Animation.easeInOut(duration: 0.2))
+                                .animation(Animation.easeInOut(duration: 0.2), value: showNotification)
                                 .onTapGesture {
                                     showNotification.toggle()
                                 }

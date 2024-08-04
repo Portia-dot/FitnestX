@@ -15,6 +15,7 @@ struct DashboardView: View {
             Spacer()
             VStack(spacing: 20){
                 SleepView(image: "Sleep-Graph", title: "Sleep", description: "8h 20m")
+                    
                 SleepView(title: "Heart Beat", description: "120BPM")
                 Spacer()
                 CalorieTrackerView()
