@@ -40,33 +40,6 @@ struct Profile: View {
                 }
                 
             }
-            .padding()
-            .navigationTitle("Notification")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image("Back-Navs")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.customGrey)
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image("More Circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.customGrey)
-                    }
-                    
-                }
-        }
         }
         
                 .onReceive(auth.$userSession) {userSession in
