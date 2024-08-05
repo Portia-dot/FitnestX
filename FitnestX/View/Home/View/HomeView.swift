@@ -91,6 +91,7 @@ struct HomeView: View {
                     
                     WorkoutProgressView()
                         .frame(height: 350)
+                        .padding()
                     
                     //Workout
                     VStack{

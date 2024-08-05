@@ -26,10 +26,16 @@ struct WorkoutProgressView: View {
                     CustomPicker()
                 }
                 .padding(.bottom)
-                ReuseableChart()
+                ReuseableChart(
+                    pastWeekLineBackground:Color.customPurple.opacity(0.3),
+                    currentWeekLineColor: Color.customBlue.opacity(0.5), lineBackground: Color.customPink,
+                    lineGradientColorStart: Color.customBlue.opacity(0.2),
+                    lineGradientColorStop: Color.customBlue,
+                    pastWeekLineWidth: 2,currentWeekLineWidth: 4,
+                    chartBackGround: Color.clear
+                )
             }
         }
-        .padding()
     }
     
     @ViewBuilder
@@ -41,12 +47,12 @@ struct WorkoutProgressView: View {
                     .cornerRadius(8)
                     .shadow(radius: 3)
                     .foregroundStyle(.black)
-                Text("\(data.completion)%")
+                Text("\(data.currentWeekCompletion)%")
                     .font(.title3.bold())
                     .foregroundStyle(Color.customDark)
             }
             
-            ProgressBar(progress: Double(data.completion) / 100)
+            ProgressBar(progress: 10 ,progressColor: Color.customBlue)
                .frame(width: 20, height: 6)
                 .padding(.top, 4)
         }

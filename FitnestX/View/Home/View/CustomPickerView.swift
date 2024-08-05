@@ -27,7 +27,7 @@ struct CustomPickerView: View {
                         .bold()
                         .foregroundStyle(Color.customWhite)
                 }
-//                .padding()
+                .padding(10)
                 .background(Color.customBlue)
                 .cornerRadius(20, corners: .allCorners)
             })
