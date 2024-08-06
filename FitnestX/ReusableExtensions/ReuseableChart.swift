@@ -11,6 +11,9 @@ struct ReuseableChart: View {
     var pastWeekLineWidth: CGFloat
     var currentWeekLineWidth: CGFloat
     var chartBackGround: Color
+    var yAxisColor: Color
+    var yAxisTextColor: Color
+    var xAxisTextColor: Color
 
     @State private var selectedWorkOut: WorkoutData?
     let yValues = stride(from: 0, to: 110, by: 20).map { $0 }
@@ -71,13 +74,13 @@ struct ReuseableChart: View {
             AxisMarks(values: .automatic) { value in
                 AxisGridLine().foregroundStyle(.clear)
                 AxisTick().foregroundStyle(.clear)
-                AxisValueLabel().foregroundStyle(Color.white)
+                AxisValueLabel().foregroundStyle(xAxisTextColor)
             }
         }
         .chartYAxis {
             AxisMarks(position: .trailing, values: yValues){ value in
-                AxisGridLine().foregroundStyle(Color.customDark.opacity(0.2))
-                AxisValueLabel().foregroundStyle(Color.white)
+                AxisGridLine().foregroundStyle(yAxisColor)
+                AxisValueLabel().foregroundStyle(yAxisTextColor)
             }
             
         }
@@ -169,7 +172,7 @@ struct ReuseableChart: View {
         lineGradientColorStart: Color.customDark,
         lineGradientColorStop: Color.customBlue,
         pastWeekLineWidth: 2,currentWeekLineWidth: 4,
-        chartBackGround: Color.customBlue
+        chartBackGround: Color.customBlue, yAxisColor: Color.red, yAxisTextColor: Color.red, xAxisTextColor: Color.red
     )
 }
 

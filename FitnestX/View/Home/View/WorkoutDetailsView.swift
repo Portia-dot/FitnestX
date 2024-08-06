@@ -13,12 +13,12 @@ struct WorkoutDetailsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ReuseableChart(pastWeekLineBackground: Color.customWhite.opacity(0.7), currentWeekLineColor: Color.customWhite, lineBackground: Color.customBlue, lineGradientColorStart: Color.customWhite.opacity(0.8), lineGradientColorStop: Color.customWhite.opacity(0.2), pastWeekLineWidth: 2, currentWeekLineWidth: 4, chartBackGround: Color.clear)
+                ReuseableChart(pastWeekLineBackground: Color.customWhite.opacity(0.7), currentWeekLineColor: Color.customWhite, lineBackground: Color.customBlue, lineGradientColorStart: Color.customWhite.opacity(0.8), lineGradientColorStop: Color.customWhite.opacity(0.2), pastWeekLineWidth: 2, currentWeekLineWidth: 4, chartBackGround: Color.clear, yAxisColor: Color.customGrey.opacity(0.4), yAxisTextColor: Color.customWhite, xAxisTextColor: Color.customWhite)
                     .frame(height: 300)
                 
             }
             .padding()
-            .navigationTitle("Notification")
+            .navigationTitle("Workout Tracker")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -38,8 +38,10 @@ struct WorkoutDetailsView: View {
                     } label: {
                         Image("More Circle")
                             .resizable()
+                            .symbolRenderingMode(.hierarchical)
                             .frame(width: 25, height: 25)
-                            .foregroundStyle(Color.customGrey)
+                            .background{Color.customWhite}
+                            .cornerRadius(10, corners: .allCorners)
                     }
                     
                 }

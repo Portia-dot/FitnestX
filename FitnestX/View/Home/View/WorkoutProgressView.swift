@@ -32,8 +32,7 @@ struct WorkoutProgressView: View {
                     lineGradientColorStart: Color.customBlue.opacity(0.2),
                     lineGradientColorStop: Color.customBlue,
                     pastWeekLineWidth: 2,currentWeekLineWidth: 4,
-                    chartBackGround: Color.clear
-                )
+                    chartBackGround: Color.clear, yAxisColor: Color.customPurple.opacity(0.3), yAxisTextColor: Color.customDark, xAxisTextColor: Color.customDark)
             }
         }
     }

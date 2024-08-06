@@ -40,6 +40,7 @@ struct Profile: View {
                 }
                 
             }
+            .padding()
         }
         
                 .onReceive(auth.$userSession) {userSession in
