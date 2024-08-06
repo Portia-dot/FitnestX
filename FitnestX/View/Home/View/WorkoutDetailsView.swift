@@ -12,9 +12,22 @@ struct WorkoutDetailsView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 0) {
                 ReuseableChart(pastWeekLineBackground: Color.customWhite.opacity(0.7), currentWeekLineColor: Color.customWhite, lineBackground: Color.customBlue, lineGradientColorStart: Color.customWhite.opacity(0.8), lineGradientColorStop: Color.customWhite.opacity(0.2), pastWeekLineWidth: 2, currentWeekLineWidth: 4, chartBackGround: Color.clear, yAxisColor: Color.customGrey.opacity(0.4), yAxisTextColor: Color.customWhite, xAxisTextColor: Color.customWhite)
+                
                     .frame(height: 300)
+                
+                //Reuseable Card
+            }
+            VStack(spacing: 40){
+                ReseableCard(title: "Daily Workout Schedule", buttonText: "Check")
+                    .padding(.top, 10)
+                
+                //Account Card
+              upcomingWorkoutView()
+                
+                
+              
                 
             }
             .padding()
@@ -44,16 +57,87 @@ struct WorkoutDetailsView: View {
                             .cornerRadius(10, corners: .allCorners)
                     }
                     
+                    
                 }
-        }
+                
+            }
+        
+            .background(Color.customWhite)
+            .cornerRadius(20, corners: [.topLeft, .topRight])
+            
+            
+           
+            
+            
             
         }
-        .background{
-            Color.customBlue.ignoresSafeArea()
-        }
+        .background(Color.customBlue)
+       
         
+
     }
 }
 #Preview {
-    WorkoutDetailsView()
+    workoutCards()
+}
+
+
+struct upcomingWorkoutView: View {
+    var body: some View {
+        VStack(spacing: 20){
+            HStack{
+            Text("Upcoming Workout")
+                    .font(.callout)
+                    .bold()
+                Spacer()
+            Text("See more")
+                    .font(.footnote)
+                    .bold()
+                    .foregroundStyle(Color.customGrey)
+                
+            }
+            .padding()
+            upcomingWorkoutCard(title: "Fullbody Workout", time: "Today, 03:00pm", image: "Workout-Pic", isToggle: true)
+            upcomingWorkoutCard(title: "Fullbody Workout2", time: "June 04, 03:00pm", image: "Workout-Pic", isToggle: false)
+        }
+    }
+}
+
+
+struct workoutCards : View {
+    var body: some View {
+        VStack{
+                Text("What Do You Want To Train")
+                    .font(.callout)
+                    .bold()
+            HStack{
+                VStack(alignment:.leading, spacing: 15){
+                    Text("Fullbody Workout")
+                        .bold()
+                    Text("11 Exercises | 32mins")
+                        .foregroundStyle(Color.customGrey)
+                    
+                    //Button
+                    Button(action: {}, label: {
+                        Text("View More")
+                            .font(.callout)
+                            .bold()
+                            .foregroundStyle(Color.customGrey)
+                    })
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                }
+                
+                Image("Vector-1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .frame(width: 100, height: 100)
+                    .background(Color.customGrey.opacity(0.3))
+                    .clipShape(Circle())
+                    .padding()
+            }
+            
+        }
+    }
 }

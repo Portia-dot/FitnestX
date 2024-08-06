@@ -24,6 +24,7 @@ struct ContentView: View {
         }message: {
             Text("You have been logged out Please Log in again")
         }
+
     }
 }
 

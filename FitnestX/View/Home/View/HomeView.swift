@@ -58,31 +58,9 @@ struct HomeView: View {
                     
                     RoundedSectorSpaceView(weight: user.weightInDouble, height: user.heightInDouble, heightUnit: user.heightUnit, weightUnit: user.weightUnit)
                     
-                    VStack{
-                        HStack{
-                            Text("Today Target")
-                                .foregroundStyle(Color.customDark)
-                                .font(.callout)
-                                .fontWeight(.bold)
-                            
-                            Spacer()
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                                Text("Check")
-                                    .foregroundStyle(.white)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 16)
-                                    .background(Color.customBlue)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                            })
-                            .padding()
-                        }
-                        .padding(.horizontal)
-                        .background(Color.customPurple.opacity(0.4))
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
-                        
-                    }
-                    .padding()
-                    
+                    ReseableCard(title: "Today Target", buttonText: "Check")
+                        .padding()
+    
                     //Chart View
                     ChartHomeView()
                     
@@ -171,16 +149,52 @@ struct HomeView: View {
     
 }
 #Preview {
-    HomeView(user: User(firstName: "John",
-                        lastName: "Doe",
-                        email: "john.doe@example.com",
-                        gender: "Male",
-                        height: "180",
-                        heightUnit: "cm",
-                        weight: "75",
-                        weightUnit: "kg",
-                        uid: "12345",
-                        dateOfBirth: Date()))
-    .environmentObject(RegistrationAuth())
+        HomeView(user: User(firstName: "John",
+                            lastName: "Doe",
+                            email: "john.doe@example.com",
+                            gender: "Male",
+                            height: "180",
+                            heightUnit: "cm",
+                            weight: "75",
+                            weightUnit: "kg",
+                            uid: "12345",
+                            dateOfBirth: Date()))
+        .environmentObject(RegistrationAuth())
 }
+//}
 
+
+struct ReseableCard: View {
+    var title: String
+    var buttonText: String
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Text(title)
+                    .foregroundStyle(Color.customDark)
+                    .font(.footnote)
+                    .bold()
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text(buttonText)
+                        .font(.footnote)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .background(Color.customBlue)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                })
+                .padding()
+            }
+            .padding(.horizontal)
+            .background(Color.customPurple.opacity(0.4))
+            .clipShape(RoundedRectangle(cornerRadius: 18))
+            
+        }
+       
+    }
+}
