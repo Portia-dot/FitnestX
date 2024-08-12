@@ -13,7 +13,7 @@ struct WorkoutDetailsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                ReuseableChart(pastWeekLineBackground: Color.customWhite.opacity(0.7), currentWeekLineColor: Color.customWhite, lineBackground: Color.customBlue, lineGradientColorStart: Color.customWhite.opacity(0.8), lineGradientColorStop: Color.customWhite.opacity(0.2), pastWeekLineWidth: 2, currentWeekLineWidth: 4, chartBackGround: Color.clear, yAxisColor: Color.customGrey.opacity(0.4), yAxisTextColor: Color.customWhite, xAxisTextColor: Color.customWhite)
+                ReuseableChart(pastWeekLineBackground: Color.customBlue.opacity(0.7), currentWeekLineColor: Color.customBlue, lineBackground: Color.customBlue, lineGradientColorStart: Color.customBlue.opacity(0.8), lineGradientColorStop: Color.customBlue.opacity(0.2), pastWeekLineWidth: 2, currentWeekLineWidth: 4, chartBackGround: Color.clear, yAxisColor: Color.customGrey.opacity(0.4), yAxisTextColor: Color.customBlue, xAxisTextColor: Color.customBlue)
                 
                     .frame(height: 300)
                 
@@ -22,15 +22,15 @@ struct WorkoutDetailsView: View {
             VStack(spacing: 40){
                 ReseableCard(title: "Daily Workout Schedule", buttonText: "Check")
                     .padding(.top, 10)
+                    .padding()
                 
                 //Account Card
               upcomingWorkoutView()
-                
-                
-              
-                
+                    .padding()
+                //
+                workoutCards()
             }
-            .padding()
+            .padding(.bottom)
             .navigationTitle("Workout Tracker")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
@@ -62,7 +62,6 @@ struct WorkoutDetailsView: View {
                 
             }
         
-            .background(Color.customWhite)
             .cornerRadius(20, corners: [.topLeft, .topRight])
             
             
@@ -71,14 +70,14 @@ struct WorkoutDetailsView: View {
             
             
         }
-        .background(Color.customBlue)
+//        .background(Color.customBlue)
        
         
 
     }
 }
 #Preview {
-    workoutCards()
+    WorkoutDetailsView()
 }
 
 
@@ -96,7 +95,7 @@ struct upcomingWorkoutView: View {
                     .foregroundStyle(Color.customGrey)
                 
             }
-            .padding()
+            .padding(.horizontal)
             upcomingWorkoutCard(title: "Fullbody Workout", time: "Today, 03:00pm", image: "Workout-Pic", isToggle: true)
             upcomingWorkoutCard(title: "Fullbody Workout2", time: "June 04, 03:00pm", image: "Workout-Pic", isToggle: false)
         }
@@ -106,38 +105,64 @@ struct upcomingWorkoutView: View {
 
 struct workoutCards : View {
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
                 Text("What Do You Want To Train")
                     .font(.callout)
                     .bold()
-            HStack{
-                VStack(alignment:.leading, spacing: 15){
-                    Text("Fullbody Workout")
-                        .bold()
-                    Text("11 Exercises | 32mins")
-                        .foregroundStyle(Color.customGrey)
-                    
-                    //Button
-                    Button(action: {}, label: {
-                        Text("View More")
-                            .font(.callout)
-                            .bold()
-                            .foregroundStyle(Color.customGrey)
-                    })
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    
-                }
-                
-                Image("Vector-1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
-                    .frame(width: 100, height: 100)
-                    .background(Color.customGrey.opacity(0.3))
-                    .clipShape(Circle())
-                    .padding()
-            }
-            
+                    .padding(.horizontal)
+            ReuseableWorkoutCard(workoutType: "Full Body Workout", exerciseAmount: "11 Exercises", time: "32 Mins", imageName: "Vector-1")
+            ReuseableWorkoutCard(workoutType: "LowerBody Workout", exerciseAmount: "12 Exercises", time: "40 Mins", imageName: "Vector-2")
+            ReuseableWorkoutCard(workoutType: "ABs Workout", exerciseAmount: "14 Exercises", time: "20 Mins", imageName: "Vector")
         }
+    }
+}
+
+struct ReuseableWorkoutCard: View {
+    var workoutType: String
+    var exerciseAmount: String
+    var time: String
+    var imageName: String
+    var body: some View {
+        HStack{
+            VStack(alignment:.leading, spacing: 10){
+                Text(workoutType)
+                    .font(.callout)
+                    .bold()
+                Text("\(exerciseAmount) | \(time)")
+                    .foregroundStyle(Color.customGrey)
+                    .font(.caption)
+                
+                //Button
+                Button(action: {}, label: {
+                    Text("View More")
+                        .font(.caption2)
+                        .bold()
+                        .foregroundStyle(Color.customBlue)
+                })
+                .padding(.vertical, 10)
+                .padding(.horizontal, 15)
+                .background{
+                    Color.customWhite
+                }
+                .clipShape(Capsule())
+                
+            }
+            Spacer()
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding()
+                .frame(width: 80, height: 80)
+                .background(Color.customWhite)
+                .clipShape(Circle())
+                .padding()
+        }
+        .padding()
+        .background{
+            Color.customBlue.opacity(0.2)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal)
+        .padding(.vertical, 5)
     }
 }
