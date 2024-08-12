@@ -34,16 +34,14 @@ struct WorkOutScheduleView: View {
                     withAnimation(.snappy){
                         if currentWeekIndex > 0 {
                             currentWeekIndex -= 1
-                            print("Moved to previous week, currentWeekIndex: \(currentWeekIndex)")
+                    
                         }else {
-                            let previousWeekStart = weekSlide.first?.first?.date.addingTimeInterval(-7 * 24 * 60 * 60) ?? currentDate
-                            let previousWeek = previousWeekStart.fetchWeek()
+                            let previousWeek = Date().fetchWeek(for: .previous, from: weekSlide.first?.first?.date ?? currentDate)
                             weekSlide.insert(previousWeek, at: 0)
-                            currentWeekIndex = 0
-                            print("Inserted previous week, currentWeekIndex: \(currentWeekIndex)")
+                            
                         }
                         currentDate = weekSlide[currentWeekIndex].first?.date ?? Date()
-                        print("Current Date: \(currentDate)")
+        
                     }
                 }){
                     Image(systemName: "arrow.backward.circle")
@@ -67,9 +65,11 @@ struct WorkOutScheduleView: View {
                         if currentWeekIndex < weekSlide.count - 1 {
                             currentWeekIndex += 1
                         }else{
-                            let nextWeek = currentDate.addingTimeInterval(7 * 24 * 60 * 60).fetchWeek()
+                            let nextWeek =  Date().fetchWeek(for: .next, from: weekSlide.last?.last?.date ?? currentDate)
                             weekSlide.append(nextWeek)
-                            currentWeekIndex += 1
+                            DispatchQueue.main.async{
+                                currentWeekIndex = weekSlide.count - 1
+                            }
                         }
                         currentDate = weekSlide[currentWeekIndex].first?.date ?? Date()
                     }

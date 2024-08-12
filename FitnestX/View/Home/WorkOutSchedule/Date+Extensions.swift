@@ -9,6 +9,13 @@ import SwiftUI
 
 extension Date {
     
+    enum WeekDirection {
+          case previous
+          case current
+          case next
+      }
+    
+    
     //Custom Date Formatter
     
     func format(_ format: String) -> String {
@@ -22,17 +29,38 @@ extension Date {
         return Calendar.current.isDateInToday(self)
     }
     
-    func fetchWeek(_ date: Date = .init()) -> [WeekDay] {
-        let calendar = Calendar.current
-        let startOfDate = calendar.startOfDay(for: date)
+    func fetchWeek(for direction: WeekDirection = .current, from date: Date = .init()) -> [WeekDay] {
+        let calender = Calendar.current
+        var startOfWeek: Date
         
-        var week: [WeekDay] = []
-        let weekForDate = calendar.dateInterval(of: .weekOfMonth, for: startOfDate)
-        guard let startOfWeek = weekForDate?.start else {
-            return []
+        //Calculate Start, Current , Previous Weeks
+        
+        switch direction {
+        case .previous:
+            if let interval =  calender.dateInterval(of: .weekOfMonth, for: date){
+                startOfWeek = interval.start.addingTimeInterval(-7 * 24 * 60 * 60)
+                
+            }else{
+                startOfWeek = date.addingTimeInterval(-7 * 24 * 60 * 60)
+            }
+        case .next:
+            if let interval =  calender.dateInterval(of: .weekOfMonth, for: date){
+                startOfWeek = interval.start.addingTimeInterval(7 * 24 * 60 * 60)
+                
+            }else{
+                startOfWeek = date.addingTimeInterval(7 * 24 * 60 * 60)
+            }
+        case .current:
+            if let interval =  calender.dateInterval(of: .weekOfMonth, for: date){
+                startOfWeek = interval.start
+                
+            }else{
+                startOfWeek = calender.startOfDay(for: date)
+            }
         }
-        (0..<7).forEach{ index in
-            if let weekDay = calendar.date(byAdding: .day, value: index, to: startOfWeek){
+        var week: [WeekDay] = []
+        (0..<7).forEach { index in
+            if let weekDay = calender.date(byAdding: .day, value: index, to: startOfWeek){
                 week.append(.init(date: weekDay))
             }
         }
