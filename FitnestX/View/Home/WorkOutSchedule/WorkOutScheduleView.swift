@@ -14,6 +14,7 @@ struct WorkOutScheduleView: View {
     @State private var currentWeekIndex: Int = 0
     @Namespace private var animation
     @State private var tasks : [Task] = sampleTasks.sorted(by: {$1.creationDate > $0.creationDate})
+    @State private var createNewTask: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
            HeaderView()
@@ -25,12 +26,36 @@ struct WorkOutScheduleView: View {
                 .vSpacing(.center)
             }
         }
+        .background{
+            Color.customWhite
+                .ignoresSafeArea()
+        }
         .vSpacing(.top)
+        .overlay(alignment: .bottomTrailing){
+            Button {
+                createNewTask.toggle()
+            } label: {
+                Image(systemName: "plus")
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.customWhite)
+                    .frame(width: 55, height: 55)
+                    .background(Color.customPurple, in: .circle)
+            }
+            .padding(15)
+
+        }
         .onAppear{
             if weekSlide.isEmpty{
                 let currentWeek = Date().fetchWeek()
                 weekSlide.append(currentWeek)
             }
+        }
+        .sheet(isPresented: $createNewTask) {
+            NewTaskView()
+                .presentationDetents([.height(300)])
+                .interactiveDismissDisabled()
+                .presentationCornerRadius(30)
+                .presentationBackground(Color.customWhite)
         }
     }
     
