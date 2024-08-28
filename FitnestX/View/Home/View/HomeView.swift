@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var showNotificationSheet: Bool = false
     @State private var hasNotifcation: Bool = true
     @State private var showFullWorkout: Bool = false
+    @State private var showWorkOutSchedule = false
     let workouts: [WorkoutsData] = WorkoutsData.sampleData
     let user: User
     
@@ -58,7 +59,9 @@ struct HomeView: View {
                     
                     RoundedSectorSpaceView(weight: user.weightInDouble, height: user.heightInDouble, heightUnit: user.heightUnit, weightUnit: user.weightUnit)
                     
-                    ReseableCard(title: "Today Target", buttonText: "Check")
+                    ReseableCard(title: "Today Target", buttonText: "Check", buttonAction: {
+                        showWorkOutSchedule = true
+                    })
                         .padding()
     
                     //Chart View
@@ -109,6 +112,11 @@ struct HomeView: View {
             .navigationDestination(isPresented: $showNotificationSheet) {
                 NotificationView()
         }
+            .navigationDestination(isPresented: $showWorkOutSchedule) {
+                WorkOutScheduleView()
+            }
+           
+
         }
     }
     
@@ -167,6 +175,7 @@ struct HomeView: View {
 struct ReseableCard: View {
     var title: String
     var buttonText: String
+    var buttonAction: (() -> Void)? = nil
     
     var body: some View {
         VStack{
@@ -178,17 +187,20 @@ struct ReseableCard: View {
                     .multilineTextAlignment(.leading)
                 
                 Spacer()
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    Text(buttonText)
-                        .font(.footnote)
-                        .bold()
-                        .foregroundStyle(.white)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 16)
-                        .background(Color.customBlue)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                })
-                .padding()
+                if let action = buttonAction{
+                    Button(action: action, label: {
+                        Text(buttonText)
+                            .font(.footnote)
+                            .bold()
+                            .foregroundStyle(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.customBlue)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                    })
+                    .padding()
+                }
+                
             }
             .padding(.horizontal)
             .background(Color.customPurple.opacity(0.4))

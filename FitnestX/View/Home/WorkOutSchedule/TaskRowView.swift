@@ -39,7 +39,8 @@ struct TaskRowView: View {
             })
             .padding(15)
             .hSpacing(.leading)
-            .background(task.tint, in:.rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
+            .background(Color(hex:task.tint), in: .rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
+//            .background(task.tint, in:.rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
             .strikethrough(task.isCompleted, pattern: .solid, color: Color.customDark)
             .offset(y: -8)
         }

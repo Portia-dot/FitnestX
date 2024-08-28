@@ -9,11 +9,12 @@ import SwiftUI
 
 struct WorkOutScheduleView: View {
     
+    @EnvironmentObject var auth: RegistrationAuth
+    @State private var tasks: [Task] = []
     @State private var currentDate: Date = .init()
     @State private var weekSlide: [[Date.WeekDay]] = []
     @State private var currentWeekIndex: Int = 0
     @Namespace private var animation
-    @State private var tasks : [Task] = sampleTasks.sorted(by: {$1.creationDate > $0.creationDate})
     @State private var createNewTask: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
@@ -26,6 +27,7 @@ struct WorkOutScheduleView: View {
                 .vSpacing(.center)
             }
         }
+        .navigationBarBackButtonHidden()
         .background{
             Color.customWhite
                 .ignoresSafeArea()
@@ -56,6 +58,17 @@ struct WorkOutScheduleView: View {
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)
                 .presentationBackground(Color.customWhite)
+        }
+    }
+    
+    private func fetchTask() {
+        auth.fetchTasks { result in
+            switch result {
+            case .success(let fetchedTasks):
+                tasks = fetchedTasks
+            case .failure(let error):
+                print("Failed to fetch tasks \(error.localizedDescription)")
+            }
         }
     }
     
@@ -192,4 +205,5 @@ struct WorkOutScheduleView: View {
 
 #Preview {
     WorkOutScheduleView()
+        .environmentObject(RegistrationAuth())
 }

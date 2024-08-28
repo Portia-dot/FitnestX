@@ -153,4 +153,41 @@ class RegistrationAuth : ObservableObject {
                 }
             }
         }
+    
+    //Add Task
+    
+    func addTask(_ task: Task, completion: @escaping (Result<Void, Error>) -> Void){
+        let db = Firestore.firestore()
+        do{
+            try db.collection("tasks").addDocument(from: task){ error in
+                if let error = error {
+                    print("Error adding documents: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }else{
+                    completion(.success(()))
+                }
+                
+            }
+        }catch{
+            print("Error serializing task: \(error.localizedDescription)")
+            completion(.failure(error))
+        }
+    }
+    func fetchTasks(completion: @escaping (Result<[Task], Error > ) -> Void){
+        guard let currentUser = userSession else {
+            print("No user session found")
+            completion(.failure(NSError(domain: "No User Session", code: 0, userInfo:[NSLocalizedDescriptionKey: "No user sesssion"] )))
+            return
+        }
+        let db = Firestore.firestore()
+        db.collection("task").whereField("userId", isEqualTo: currentUser.uid).order(by: "creationDate", descending: true).getDocuments{snapshot, error in
+            if let error = error {
+                print("Error fetching task: \(error.localizedDescription)")
+                completion(.failure(error))
+            }else{
+                let tasks = snapshot?.documents.compactMap{try? $0.data(as: Task.self)} ?? []
+                completion(.success(tasks))
+            }
+        }
+    }
 }

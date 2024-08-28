@@ -39,7 +39,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct FitnestXApp: App {
-//    @StateObject private var auth = RegistrationAuth()
+    @StateObject private var auth = RegistrationAuth.shared
+    
     //Register app delegate
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
@@ -47,7 +48,7 @@ struct FitnestXApp: App {
         WindowGroup {
             NavigationStack{
                 ContentView()
-                    .environmentObject(RegistrationAuth.shared)
+                    .environmentObject(auth)
                     .onOpenURL(perform: { url in
                         GIDSignIn.sharedInstance.handle(url)
                     })
