@@ -180,7 +180,7 @@ class RegistrationAuth : ObservableObject {
             return
         }
         let db = Firestore.firestore()
-        db.collection("task").whereField("userId", isEqualTo: currentUser.uid).order(by: "creationDate", descending: true).getDocuments{snapshot, error in
+        db.collection("tasks").whereField("userId", isEqualTo: currentUser.uid).order(by: "creationDate", descending: true).getDocuments{snapshot, error in
             if let error = error {
                 print("Error fetching task: \(error.localizedDescription)")
                 completion(.failure(error))
@@ -190,4 +190,6 @@ class RegistrationAuth : ObservableObject {
             }
         }
     }
+    
+    
 }

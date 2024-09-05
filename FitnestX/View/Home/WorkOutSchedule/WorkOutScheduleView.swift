@@ -18,7 +18,7 @@ struct WorkOutScheduleView: View {
     @State private var createNewTask: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
-           HeaderView()
+            HeaderView()
             ScrollView(.vertical){
                 VStack{
                     TaskView()
@@ -44,28 +44,41 @@ struct WorkOutScheduleView: View {
                     .background(Color.customPurple, in: .circle)
             }
             .padding(15)
-
+            
         }
         .onAppear{
             if weekSlide.isEmpty{
                 let currentWeek = Date().fetchWeek()
                 weekSlide.append(currentWeek)
             }
+            fetchTask()
+            
         }
         .sheet(isPresented: $createNewTask) {
-            NewTaskView()
+            NewTaskView(onTaskAdded: fetchTask)
+                .environmentObject(RegistrationAuth.shared)
                 .presentationDetents([.height(300)])
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)
                 .presentationBackground(Color.customWhite)
         }
+        .onChange(of: currentDate) {
+            fetchTask()
+        }
     }
     
-    private func fetchTask() {
+     func fetchTask() {
+        let calendar = Calendar.current
+        let currentDateOnly = calendar.startOfDay(for: currentDate)
+        
         auth.fetchTasks { result in
             switch result {
             case .success(let fetchedTasks):
-                tasks = fetchedTasks
+                let filteredTasks = fetchedTasks.filter { task in
+                    calendar.isDate(task.creationDate, inSameDayAs: currentDateOnly)
+                }
+                print("Fetched tasks successfully. Matching Count: \(filteredTasks.count)")
+                self.tasks = filteredTasks
             case .failure(let error):
                 print("Failed to fetch tasks \(error.localizedDescription)")
             }
@@ -80,14 +93,14 @@ struct WorkOutScheduleView: View {
                     withAnimation(.snappy){
                         if currentWeekIndex > 0 {
                             currentWeekIndex -= 1
-                    
+                            
                         }else {
                             let previousWeek = Date().fetchWeek(for: .previous, from: weekSlide.first?.first?.date ?? currentDate)
                             weekSlide.insert(previousWeek, at: 0)
                             
                         }
                         currentDate = weekSlide[currentWeekIndex].first?.date ?? Date()
-        
+                        
                     }
                 }){
                     Image(systemName: "arrow.backward.circle")
@@ -129,14 +142,14 @@ struct WorkOutScheduleView: View {
             }
             TabView(selection: $currentWeekIndex){
                 ForEach(weekSlide.indices, id: \.self){ index in
-                let week = weekSlide[index]
+                    let week = weekSlide[index]
                     weekView(week)
                         .tag(index)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: 90)
-                
+            
         })
         .padding()
         .background(Color.customWhite)
@@ -172,11 +185,12 @@ struct WorkOutScheduleView: View {
                             .stroke(Color.customGrey, lineWidth: 2)
                     }
                     
-
+                    
                 }
                 .onTapGesture {
                     withAnimation(.snappy){
                         currentDate = day.date
+                        fetchTask()
                     }
                 }
             }
@@ -205,5 +219,5 @@ struct WorkOutScheduleView: View {
 
 #Preview {
     WorkOutScheduleView()
-        .environmentObject(RegistrationAuth())
+        .environmentObject(RegistrationAuth.shared)
 }

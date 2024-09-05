@@ -14,6 +14,9 @@ struct NewTaskView: View {
     @State private var taskTitle: String = ""
     @State private var taskDate: Date = .init()
     @State private var taskColor: Color = Color.customBlue
+    
+    var onTaskAdded: (() -> Void)?
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             Button {
@@ -104,7 +107,7 @@ struct NewTaskView: View {
            let newTask = Task(
                id: UUID(),
                taskTitle: taskTitle,
-               creationDate: Date(),
+               creationDate: taskDate,
                isCompleted: false,
                tint: taskColor,
                userId: currentUser.uid
@@ -114,6 +117,7 @@ struct NewTaskView: View {
                switch result {
                case .success:
                    print("Task added successfully")
+                   onTaskAdded?()
                    dismiss()
                case .failure(let error):
                    print("Failed to add task: \(error.localizedDescription)")
@@ -124,6 +128,6 @@ struct NewTaskView: View {
 
 #Preview {
     NewTaskView()
-        .environmentObject(RegistrationAuth())
+        .environmentObject(RegistrationAuth.shared)
         .vSpacing(.bottom)
 }

@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var auth: RegistrationAuth
+    @EnvironmentObject var auth: RegistrationAuth {
+        didSet {
+            print("EnvironmentObject received in \(Self.self)")
+        }
+    }
     @State private var showNotificationSheet: Bool = false
     @State private var hasNotifcation: Bool = true
     @State private var showFullWorkout: Bool = false
@@ -103,6 +107,7 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showFullWorkout) {
                 ActivityDetailsView()
+                    .environmentObject(auth)
             }
             .background{
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -111,9 +116,11 @@ struct HomeView: View {
             }
             .navigationDestination(isPresented: $showNotificationSheet) {
                 NotificationView()
+                    .environmentObject(auth)
         }
             .navigationDestination(isPresented: $showWorkOutSchedule) {
                 WorkOutScheduleView()
+                    .environmentObject(auth)
             }
            
 
@@ -167,7 +174,7 @@ struct HomeView: View {
                             weightUnit: "kg",
                             uid: "12345",
                             dateOfBirth: Date()))
-        .environmentObject(RegistrationAuth())
+        .environmentObject(RegistrationAuth.shared)
 }
 //}
 
@@ -176,6 +183,8 @@ struct ReseableCard: View {
     var title: String
     var buttonText: String
     var buttonAction: (() -> Void)? = nil
+    
+    @EnvironmentObject var auth: RegistrationAuth
     
     var body: some View {
         VStack{

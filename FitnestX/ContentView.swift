@@ -13,10 +13,8 @@ struct ContentView: View {
         Group{
             if auth.userSession == nil{
                 IntroScreen()
-                    .environmentObject(auth)
             }else{
                 MainTabView()
-                    .environmentObject(auth)
             }
         }
         .alert("Logged Out", isPresented: $auth.showLogOutAlert){
@@ -30,7 +28,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(RegistrationAuth())
+        .environmentObject(RegistrationAuth.shared)
 }
 
 
